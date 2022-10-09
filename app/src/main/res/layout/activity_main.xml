@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="#EBEBEB">
+
+
+    <android.widget.Button
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="381dp"
+        android:background="@drawable/background_login"
+        android:clickable="false"></android.widget.Button>
+
+    <android.widget.TextView
+        android:id="@+id/welcome"
+        android:layout_width="247dp"
+        android:layout_height="67dp"
+        android:layout_above="@id/background"
+        android:layout_alignBottom="@+id/background"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="198dp"
+        android:elevation="100dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="40dp"
+        android:textStyle="bold"></android.widget.TextView>
+
+    <android.widget.Button
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/background"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="207dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_rectangle"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Sign In"
+        android:textAllCaps="false"
+        android:textColor="#585DDB"
+        android:textStyle="bold"></android.widget.Button>
+
+    <android.widget.Button
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/background"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_rectangle"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="#585DDB"
+        android:textStyle="bold"></android.widget.Button>
+
+    <android.widget.Button
+        android:layout_width="349dp"
+        android:layout_height="276dp"
+        android:layout_alignBottom="@+id/background"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="-245dp"
+        android:background="#fff" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="307dp"
+        android:layout_marginBottom="326dp"
+        android:background="@drawable/leftside_login"
+        android:elevation="100dp"></ImageView>
+
+    <EditText
+        android:layout_width="225dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="327dp"
+        android:background="@drawable/rightside_login"
+        android:elevation="100dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:hint="Email"
+        android:textColor="#8A8A8A"
+        android:textSize="15dp" />
+
+
+</RelativeLayout>
