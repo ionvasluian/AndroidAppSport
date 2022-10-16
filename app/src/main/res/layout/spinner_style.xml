@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:maxLines="1"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_gravity="left"
+    android:gravity="center_vertical|left"
+    android:textColor="#727272"
+    android:fontFamily="@font/montserrat_regular"
+    android:textSize="15dp"
+    android:padding="5dp"
+    android:textStyle="bold"
+    />
