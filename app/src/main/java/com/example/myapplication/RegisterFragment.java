@@ -77,7 +77,7 @@ public class RegisterFragment extends Fragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CreateEventActivity.class);
+                Intent intent = new Intent(getActivity(), ViewEventActivity.class);
                 startActivity(intent);
             }
         });

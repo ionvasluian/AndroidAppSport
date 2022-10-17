@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -23,6 +25,7 @@ public class CreateEventActivity extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
     EditText editText, timeCreateEvent, nameCreateEvent, placeCreateEvent, minPeopleCreateEvent, maxPeopleCreateEvent, descriptionCreateEvent;
     String txtTime = null;
+    ImageView backButton;
     private int mYear, mMonth, mDay, mHour, mMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class CreateEventActivity extends AppCompatActivity {
         minPeopleCreateEvent = findViewById(R.id.initial_people_createevent);
         maxPeopleCreateEvent = findViewById(R.id.max_people_createevent);
         descriptionCreateEvent = findViewById(R.id.description_createevent);
+        backButton = findViewById(R.id.back_createevent);
         category = findViewById(R.id.category_createevent);
 
 //        nameCreateEvent.setTextColor(Color.argb(100,114,114,114));
@@ -64,6 +68,14 @@ public class CreateEventActivity extends AppCompatActivity {
                 updateLabel();
             }
         };
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateEventActivity.this, ViewEventActivity.class);
+                startActivity(intent);
+            }
+        });
+
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,5 +125,12 @@ public class CreateEventActivity extends AppCompatActivity {
         String myFormat="dd/MM/yy";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
         editText.setText("    "+dateFormat.format(myCalendar.getTime()));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(CreateEventActivity.this, ViewEventActivity.class);
+        startActivity(intent);
     }
 }
