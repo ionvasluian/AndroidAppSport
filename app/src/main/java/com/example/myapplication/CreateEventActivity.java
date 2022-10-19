@@ -8,30 +8,50 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CreateEventActivity extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
     EditText editText, timeCreateEvent, nameCreateEvent, placeCreateEvent, minPeopleCreateEvent, maxPeopleCreateEvent, descriptionCreateEvent;
     String txtTime = null;
     ImageView backButton;
+    Button createEventButton;
     private int mYear, mMonth, mDay, mHour, mMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Spinner category;
-
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://52.86.7.191:443/createEvent";
         setContentView(R.layout.activity_create_event);
         editText = findViewById(R.id.date_createevent);
         timeCreateEvent = findViewById(R.id.time_createevent);
@@ -42,6 +62,7 @@ public class CreateEventActivity extends AppCompatActivity {
         descriptionCreateEvent = findViewById(R.id.description_createevent);
         backButton = findViewById(R.id.back_createevent);
         category = findViewById(R.id.category_createevent);
+        createEventButton = findViewById(R.id.createEventButton);
 
 //        nameCreateEvent.setTextColor(Color.argb(100,114,114,114));
 //        placeCreateEvent.setTextColor(Color.argb(100,114,114,114));
@@ -119,6 +140,56 @@ public class CreateEventActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
+        });
+
+        createEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("Works","Entered");
+                RequestQueue queue = Volley.newRequestQueue(CreateEventActivity.this);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                Log.e("Works", response);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            Log.e("Works", "Not Works");
+                        }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        // below line we are creating a map for
+                        // storing our values in key and value pair.
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        params.put("name", "volleyball go");
+                        params.put("date", "2022-09-30");
+                        params.put("time", "21:00");
+                        params.put("place", "Undeva departe");
+                        params.put("category", "Volleyball");
+                        params.put("numberOfPeople","4");
+                        params.put("totalNumberOfPeople","12");
+                        params.put("description", "test");
+                        params.put("owner","tester");
+//                        // on below line we are passing our key
+//                        // and value pair to our parameters.
+//                        params.put("name", name);
+//                        params.put("job", job);
+//                        // at last we are
+//                        // returning our params.
+                        return params;
+                    }
+                };
+                // below line is to make
+                // a json object request.
+                queue.add(stringRequest);
+            }
+
+
         });
     }
     private void updateLabel(){
