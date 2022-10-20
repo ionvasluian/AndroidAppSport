@@ -67,7 +67,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_event);
         nameCreateEvent        = findViewById(R.id.event_name_createevent);
-        dateCreateEvent = findViewById(R.id.date_createevent);
+        dateCreateEvent        = findViewById(R.id.date_createevent);
         timeCreateEvent        = findViewById(R.id.time_createevent);
         placeCreateEvent       = findViewById(R.id.place_createevent);
         minPeopleCreateEvent   = findViewById(R.id.initial_people_createevent);
@@ -106,7 +106,7 @@ public class CreateEventActivity extends AppCompatActivity {
         nameCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eventNameFieldValue = nameCreateEvent.getText().toString();
+//                eventNameFieldValue = nameCreateEvent.getText().toString();
             }
         });
 
@@ -136,7 +136,8 @@ public class CreateEventActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                timeCreateEvent.setText(String.format("   %d:%d", hourOfDay, minute));
+                                timeCreateEvent.setText(FormatTime(String.format("   %d:%d", hourOfDay, minute)));
+                                eventTimeFieldValue = timeCreateEvent.getText().toString().trim();
                             }
                         },
                         mHour,
@@ -147,11 +148,41 @@ public class CreateEventActivity extends AppCompatActivity {
             }
         });
 
+        placeCreateEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                eventPlaceFieldValue = placeCreateEvent.getText().toString();
+            }
+        });
+
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                eventCategoryFieldValue = adapterView.getItemAtPosition(position).toString().trim();
+            }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        minPeopleCreateEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                eventNumberOfPeopleFieldValue = minPeopleCreateEvent.getText().toString();
+            }
+        });
+
+        maxPeopleCreateEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString();
+            }
+        });
+
+        descriptionCreateEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                eventDescriptionFieldValue = descriptionCreateEvent.getText().toString();
+            }
         });
 
         createEventButton.setOnClickListener(new View.OnClickListener() {
@@ -163,30 +194,47 @@ public class CreateEventActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 Log.e("Works", response);
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        response,
-                                        Toast.LENGTH_SHORT
-                                ).show();
+//                                Toast.makeText(
+//                                        getApplicationContext(),
+//                                        response,
+//                                        Toast.LENGTH_SHORT
+//                                ).show();
                             }
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                             Log.e("Works", String.valueOf(error));
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    (CharSequence) error,
-                                    Toast.LENGTH_LONG
-                            ).show();
+//                            Toast.makeText(
+//                                    getApplicationContext(),
+//                                    (CharSequence) error,
+//                                    Toast.LENGTH_LONG
+//                            ).show();
                         }
                 }) {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
 
+                        eventNameFieldValue = nameCreateEvent.getText().toString().trim();
+                        eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
+                        eventNumberOfPeopleFieldValue = minPeopleCreateEvent.getText().toString().trim();
+                        eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
+                        eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
+//
+//                        Log.e("Fields", "Verifying fields");
+//                        Log.e("Fields", eventNameFieldValue);
+//                        Log.e("Fields", eventDateFieldValue);
+//                        Log.e("Fields", FormatTime(eventTimeFieldValue));
+//                        Log.e("Fields", eventPlaceFieldValue);
+//                        Log.e("Fields", eventCategoryFieldValue);
+//                        Log.e("Fields", eventNumberOfPeopleFieldValue);
+//                        Log.e("Fields", eventTotalNumberOfPeopleFieldValue);
+//                        Log.e("Fields", eventDescriptionFieldValue);
+//                        Log.e("Fields", eventOwnerValue);
+
                         params.put("name", eventNameFieldValue);
                         params.put("date", eventDateFieldValue);
-                        params.put("time", eventTimeFieldValue);
+                        params.put("time", FormatTime(eventTimeFieldValue));
                         params.put("place", eventPlaceFieldValue);
                         params.put("category", eventCategoryFieldValue);
                         params.put("numberOfPeople", eventNumberOfPeopleFieldValue);
@@ -205,7 +253,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private void updateDateOnLabel(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         dateCreateEvent.setText(String.format("    %s", dateFormat.format(calendar.getTime())));
-        eventDateFieldValue = dateCreateEvent.getText().toString();
+        eventDateFieldValue = dateCreateEvent.getText().toString().trim();
         Log.e("Date", eventDateFieldValue);
     }
 
@@ -214,5 +262,19 @@ public class CreateEventActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(CreateEventActivity.this, ViewEventActivity.class);
         startActivity(intent);
+    }
+
+    private String FormatTime(String time) {
+        String hours = time.split(":")[0];
+        String minutes = time.split(":")[1];
+
+        if (hours.length() < 2) {
+            hours = "0" + hours;
+        }
+        if (minutes.length() < 2) {
+            minutes = "0" + minutes;
+        }
+
+        return hours + ":" + minutes;
     }
 }
