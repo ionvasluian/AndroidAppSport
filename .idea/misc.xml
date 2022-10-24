@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/alertdialog_background.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/background_login.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/bg_spinner.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.1865" />
@@ -11,6 +12,7 @@
         <entry key="app/src/main/res/drawable/createevent_category_left.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/createevent_category_right.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/createevent_edittext_background.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/error_imgview.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/google_register_button.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/leftside_login.xml" value="0.18" />
@@ -22,17 +24,21 @@
         <entry key="app/src/main/res/drawable/rightside_login.xml" value="0.338" />
         <entry key="app/src/main/res/drawable/signin_background.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/spinner_style.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/success_imgview.xml" value="0.14" />
+        <entry key="app/src/main/res/drawable/top_alertdialog_background.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/volleyball_imageview.xml" value="0.184" />
         <entry key="app/src/main/res/font/montserrat.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/layout/activity_create_event.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_create_event.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2894399315946986" />
         <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.34994807892004154" />
         <entry key="app/src/main/res/layout/activity_view_event_element.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/error_alert_dialog_layout.xml" value="0.14615384615384616" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.29583333333333334" />
         <entry key="app/src/main/res/layout/fragment_login2.xml" value="0.144017094017094" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/spinner_style.xml" value="0.147008547008547" />
+        <entry key="app/src/main/res/layout/success_alert_dialog_layout.xml" value="0.5" />
       </map>
     </option>
   </component>

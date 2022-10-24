@@ -48,7 +48,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="26dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Event Name"
@@ -61,7 +61,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="215dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Place"
@@ -74,8 +74,8 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="208dp"
-            android:layout_marginTop="297dp"
+            android:layout_marginStart="201dp"
+            android:layout_marginTop="299dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="People"
             android:textAlignment="center"
@@ -88,7 +88,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="204dp"
+            android:layout_marginStart="198dp"
             android:layout_marginTop="317dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="No."
@@ -102,7 +102,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="263dp"
+            android:layout_marginStart="255dp"
             android:layout_marginTop="317dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Tot."
@@ -116,7 +116,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="243dp"
+            android:layout_marginStart="238dp"
             android:layout_marginTop="317dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="/"
@@ -130,7 +130,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="465dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Description"
@@ -143,7 +143,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/event_name_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="314dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Category"
@@ -156,7 +156,7 @@
             android:layout_height="18dp"
             android:layout_alignStart="@+id/date_createevent"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="120dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Date"
@@ -182,14 +182,14 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="300dp"
+            android:layout_marginStart="306dp"
             android:layout_marginTop="337dp"
             android:background="@drawable/createevent_edittext_background"
             android:elevation="10dp"
             android:fontFamily="@font/montserrat_regular"
             android:inputType="number"
-            android:textColor="#727272"
             android:textAlignment="center"
+            android:textColor="#727272"
             android:textSize="15dp"
             android:textStyle="bold"></EditText>
 
@@ -199,32 +199,43 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="241dp"
-            android:layout_marginTop="337dp"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="336dp"
             android:background="@drawable/createevent_edittext_background"
             android:elevation="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:textColor="#727272"
             android:inputType="number"
             android:textAlignment="center"
+            android:textColor="#727272"
             android:textSize="15dp"
             android:textStyle="bold"></EditText>
 
+        <ImageView
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="237dp"
+            android:layout_marginEnd="41dp"
+            android:background="@drawable/createevent_edittext_background"
+            android:elevation="10dp"></ImageView>
+
         <EditText
             android:id="@+id/place_createevent"
-            android:layout_width="310dp"
+            android:layout_width="280dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="42dp"
+            android:layout_marginStart="57dp"
             android:layout_marginTop="237dp"
             android:background="@drawable/createevent_edittext_background"
             android:elevation="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="     "
+            android:maxLines="1"
             android:textColor="#727272"
             android:textSize="15dp"
-            android:textStyle="bold"></EditText>
+            android:textStyle="bold"
+            android:singleLine="true"></EditText>
 
         <EditText
             android:id="@+id/description_createevent"
@@ -237,26 +248,51 @@
             android:background="@drawable/createevent_edittext_background"
             android:elevation="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="     "
             android:textColor="#727272"
             android:textSize="15dp"
-            android:textStyle="bold"></EditText>
+            android:textStyle="bold"
+            android:gravity="top"></EditText>
 
-        <EditText
-            android:id="@+id/event_name_createevent"
+        <ImageView
             android:layout_width="310dp"
             android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="41dp"
+            android:background="@drawable/createevent_edittext_background"
+            android:elevation="10dp"></ImageView>
+
+
+
+        <ImageView
+            android:layout_width="154dp"
+            android:layout_height="51dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="42dp"
+            android:layout_marginTop="143dp"
+            android:background="@drawable/createevent_edittext_background"
+            android:elevation="10dp"></ImageView>
+
+
+        <EditText
+            android:id="@+id/event_name_createevent"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="57dp"
             android:layout_marginTop="48dp"
             android:background="@drawable/createevent_edittext_background"
             android:elevation="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="    "
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="#727272"
             android:textSize="15dp"
-            android:textStyle="bold"></EditText>
+            android:textStyle="bold"
+            ></EditText>
 
         <EditText
             android:id="@+id/time_createevent"
@@ -273,18 +309,19 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:fontFamily="@font/montserrat_regular"
+            android:singleLine="true"
             android:textColor="#727272"
             android:textSize="15dp"
             android:textStyle="bold"></EditText>
 
         <EditText
             android:id="@+id/date_createevent"
-            android:layout_width="174dp"
+            android:layout_width="122dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="142dp"
+            android:layout_marginStart="59dp"
+            android:layout_marginTop="143dp"
             android:background="@drawable/createevent_edittext_background"
             android:clickable="false"
             android:cursorVisible="false"
@@ -345,9 +382,9 @@
             android:src="@drawable/line"></ImageView>
 
         <Button
+            android:id="@+id/createEventButton"
             android:layout_width="173dp"
             android:layout_height="42dp"
-            android:id="@+id/createEventButton"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="111dp"

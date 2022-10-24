@@ -40,7 +40,8 @@
             android:hint="Email"
             android:outlineProvider="none"
             android:textColor="#A8A8A8"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:singleLine="true"/>
 
         <ImageView
             android:layout_width="48dp"
@@ -68,9 +69,11 @@
             android:elevation="100dp"
             android:fontFamily="@font/montserrat_regular"
             android:hint="Password"
+            android:inputType="textPassword"
             android:outlineProvider="none"
             android:textColor="#A8A8A8"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/signinbutton"

@@ -57,8 +57,10 @@
             android:elevation="100dp"
             android:fontFamily="@font/montserrat_regular"
             android:hint="Email"
+            android:maxLines="1"
             android:outlineProvider="none"
             android:textColor="#A8A8A8"
+            android:singleLine="true"
             android:textSize="15dp" />
 
         <EditText
@@ -73,6 +75,8 @@
             android:elevation="100dp"
             android:fontFamily="@font/montserrat_regular"
             android:hint="Username"
+            android:maxLines="1"
+            android:singleLine="true"
             android:outlineProvider="none"
             android:textColor="#A8A8A8"
             android:textSize="15dp" />
@@ -103,8 +107,11 @@
             android:elevation="100dp"
             android:fontFamily="@font/montserrat_regular"
             android:hint="Password"
+            android:inputType="textPassword"
+            android:maxLines="1"
             android:outlineProvider="none"
             android:textColor="#A8A8A8"
+            android:singleLine="true"
             android:textSize="15dp" />
 
         <Button
