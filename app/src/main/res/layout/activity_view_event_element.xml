@@ -30,7 +30,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:background="@drawable/createevent_edittext_background"
-            android:layout_weight="1000">
+            android:layout_weight="1000"
+            android:id="@+id/eventholder">
 
             <Space
                 android:layout_width="10dp"

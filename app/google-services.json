@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1083226171167",
+    "project_id": "agon-backend",
+    "storage_bucket": "agon-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083226171167:android:4f25e2d0d63275d733322a",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083226171167-4h5s1e4bub7e59qpdnakh54rnqjvb2t5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzvk4TIzqp5xJ7sSZy4ghJVvmbQ6cnJVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083226171167-4h5s1e4bub7e59qpdnakh54rnqjvb2t5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,6 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RegisterFragment#newInstance} factory method to
@@ -27,6 +35,8 @@ public class RegisterFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
+    private boolean showOneTapUI = true;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -72,8 +82,14 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button register;
+        Button register, googleRegister;
         register = view.findViewById(R.id.signupbutton);
+        googleRegister = view.findViewById(R.id.googleSignUpButton);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,5 +97,35 @@ public class RegisterFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        googleRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                BeginSignInRequest signInRequest = BeginSignInRequest.builder()
+//                        .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+//                                .setSupported(true).setServerClientId(getString(R.string.default_web_client_id))
+//                                .setFilterByAuthorizedAccounts(true)
+//                                .build())
+//                        .build();
+
+
+                GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.web_client_id))//you can also use R.string.default_web_client_id
+                        .requestEmail()
+                        .build();
+                GoogleApiClient googleApiClient=new GoogleApiClient.Builder(getActivity())
+                        .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                                
+                            }
+                        })
+                        .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                        .build();
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
+    
 }

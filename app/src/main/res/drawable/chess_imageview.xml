@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+
+            android:shape="oval">
+            <solid android:color="#EBEBEB"/>
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/chess"
+        android:bottom="40dp"
+        android:left="30dp"
+        android:right="30dp"
+        android:top="15dp"/>
+</layer-list>
