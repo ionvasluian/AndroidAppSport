@@ -56,6 +56,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.MyVi
             holder.volley_ball.setImageResource(R.drawable.tennis_imageview);
         }else if(eventListElements.get(position).getCategory().equals("table tennis")){
             holder.volley_ball.setImageResource(R.drawable.tennis_table_imageview);
+        }else if(eventListElements.get(position).getCategory().equals("checkers")){
+            holder.volley_ball.setImageResource(R.drawable.checkers_imageview);
         }
         holder.people_event.setText(eventListElements.get(position).getNumber_of_people());
     }

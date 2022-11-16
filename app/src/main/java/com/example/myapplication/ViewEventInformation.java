@@ -58,6 +58,8 @@ public class ViewEventInformation extends AppCompatActivity {
             category_event.setImageResource(R.drawable.tennis_imageview);
         }else if(cat.toLowerCase().equals("table tennis")){
             category_event.setImageResource(R.drawable.tennis_table_imageview);
+        }else if(cat.toLowerCase().equals("checkers")){
+            category_event.setImageResource(R.drawable.checkers_imageview);
         }
 
     }

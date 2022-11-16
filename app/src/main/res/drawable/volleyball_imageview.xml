@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:padding="16dp"
-            android:shape="rectangle">
+            android:shape="oval">
             <solid android:color="#EBEBEB"/>
             <corners android:bottomLeftRadius="45dp" android:topLeftRadius="45dp"  android:topRightRadius="45dp" android:bottomRightRadius="45dp"/>
         </shape>
     </item>
     <item
         android:drawable="@drawable/volleyball"
-        android:bottom="16dp"
-        android:left="16dp"
-        android:right="16dp"
-        android:top="15dp"/>
+        android:bottom="75dp"
+        android:left="75dp"
+        android:right="75dp"
+        android:top="75dp"/>
 </layer-list>
