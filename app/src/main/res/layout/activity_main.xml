@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,36 +8,82 @@
     android:background="#EBEBEB">
 
 
-    <android.widget.Button
+    <LinearLayout
         android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="428dp"
         android:background="@drawable/background_login"
-        android:clickable="false"></android.widget.Button>
+        android:clickable="false">
 
-    <android.widget.TextView
-        android:id="@+id/welcome"
-        android:layout_width="247dp"
-        android:layout_height="67dp"
-        android:layout_above="@id/background"
-        android:layout_alignBottom="@+id/background"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="73dp"
-        android:layout_marginBottom="206dp"
-        android:elevation="100dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/welcome"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="40dp"
-        android:textStyle="bold"></android.widget.TextView>
+        <android.widget.TextView
+            android:id="@+id/welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="40dp"
+            android:textStyle="bold"></android.widget.TextView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.widget.Button
+                android:id="@+id/signin"
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+
+
+                android:layout_marginTop="90dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/button_rectangle"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Sign In"
+                android:textAllCaps="false"
+                android:textColor="#585DDB"
+                android:textStyle="bold"
+                ></android.widget.Button>
+
+            <android.widget.Button
+                android:id="@+id/register"
+                android:layout_width="167dp"
+                android:layout_height="wrap_content"
+
+                style="?android:attr/borderlessButtonStyle"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+
+                android:layout_marginTop="90dp"
+
+                android:background="@drawable/button_rectangle"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:textColor="#585DDB"
+                android:textStyle="bold"></android.widget.Button>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/container1"
@@ -45,77 +91,12 @@
         android:layout_height="395dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="319dp"
-        android:layout_marginEnd="31dp"
-        android:elevation="100dp"
-        android:gravity="top"></RelativeLayout>
+        android:layout_marginTop="0dp"
 
-    <android.widget.Button
-        android:id="@+id/signin"
-        android:layout_width="165dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/container1"
-        android:layout_alignBottom="@+id/background"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="262dp"
-        android:layout_marginEnd="166dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/button_rectangle"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="Sign In"
-        android:textAllCaps="false"
-        android:textColor="#585DDB"
-        android:textStyle="bold"></android.widget.Button>
+        android:gravity="top"
 
-    <android.widget.Button
-        android:id="@+id/register"
-        android:layout_width="167dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/background"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="262dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/button_rectangle"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="Sign Up"
-        android:textAllCaps="false"
-        android:textColor="#585DDB"
-        android:textStyle="bold"></android.widget.Button>
-
-    <!--    <android.widget.Button-->
-<!--        android:layout_width="349dp"-->
-<!--        android:layout_height="276dp"-->
-<!--        android:layout_alignBottom="@+id/background"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginEnd="31dp"-->
-<!--        android:layout_marginBottom="-245dp"-->
-<!--        android:background="#fff" />-->
-
-<!--    <ImageView-->
-<!--        android:layout_width="48dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginEnd="307dp"-->
-<!--        android:layout_marginBottom="326dp"-->
-<!--        android:background="@drawable/leftside_login"-->
-<!--        android:elevation="100dp"></ImageView>-->
-
-<!--    <EditText-->
-<!--        android:layout_width="225dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginEnd="82dp"-->
-<!--        android:layout_marginBottom="327dp"-->
-<!--        android:background="@drawable/rightside_login"-->
-<!--        android:elevation="100dp"-->
-<!--        android:fontFamily="@font/montserrat_regular"-->
-<!--        android:hint="Email"-->
-<!--        android:textColor="#8A8A8A"-->
-<!--        android:textSize="15dp" />-->
+        android:layout_gravity="center"></RelativeLayout>
 
 
-</RelativeLayout>
+
+</LinearLayout>

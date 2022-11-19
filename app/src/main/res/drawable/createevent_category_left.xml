@@ -10,7 +10,7 @@
     <item
         android:drawable="@drawable/scrolldown"
         android:bottom="21dp"
-        android:left="142dp"
+        android:left="136dp"
         android:right="17dp"
         android:top="21dp"/>
 </layer-list>

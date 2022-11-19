@@ -39,9 +39,9 @@
         <entry key="app/src/main/res/drawable/volleyball_imageview.xml" value="0.184" />
         <entry key="app/src/main/res/font/montserrat.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/layout/activity_create_event.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2894399315946986" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.13247863247863248" />
-        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.34994807892004154" />
+        <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_view_event_element.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_view_event_information.xml" value="0.22" />
         <entry key="app/src/main/res/layout/error_alert_dialog_layout.xml" value="0.14615384615384616" />

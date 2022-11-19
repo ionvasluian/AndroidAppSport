@@ -48,7 +48,6 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText dateCreateEvent;
     EditText timeCreateEvent;
     EditText placeCreateEvent;
-    EditText minPeopleCreateEvent;
     EditText maxPeopleCreateEvent;
     EditText descriptionCreateEvent;
     ImageView backButton;
@@ -60,7 +59,6 @@ public class CreateEventActivity extends AppCompatActivity {
     String eventTimeFieldValue;
     String eventPlaceFieldValue;
     String eventCategoryFieldValue;
-    String eventNumberOfPeopleFieldValue;
     String eventTotalNumberOfPeopleFieldValue;
     String eventDescriptionFieldValue;
     String eventOwnerValue = "NoName";
@@ -76,7 +74,6 @@ public class CreateEventActivity extends AppCompatActivity {
         dateCreateEvent        = findViewById(R.id.date_createevent);
         timeCreateEvent        = findViewById(R.id.time_createevent);
         placeCreateEvent       = findViewById(R.id.place_createevent);
-        minPeopleCreateEvent   = findViewById(R.id.initial_people_createevent);
         maxPeopleCreateEvent   = findViewById(R.id.max_people_createevent);
         descriptionCreateEvent = findViewById(R.id.description_createevent);
         backButton             = findViewById(R.id.back_createevent);
@@ -170,19 +167,8 @@ public class CreateEventActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        minPeopleCreateEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                eventNumberOfPeopleFieldValue = minPeopleCreateEvent.getText().toString();
-            }
-        });
 
-        maxPeopleCreateEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString();
-            }
-        });
+
 
         descriptionCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,7 +249,6 @@ public class CreateEventActivity extends AppCompatActivity {
 
                             eventNameFieldValue = nameCreateEvent.getText().toString().trim();
                             eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
-                            eventNumberOfPeopleFieldValue = minPeopleCreateEvent.getText().toString().trim();
                             eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
                             eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
 
@@ -273,7 +258,7 @@ public class CreateEventActivity extends AppCompatActivity {
                             params.put("time", FormatTime(eventTimeFieldValue));
                             params.put("place", eventPlaceFieldValue);
                             params.put("category", eventCategoryFieldValue);
-                            params.put("numberOfPeople", eventNumberOfPeopleFieldValue);
+                            params.put("numberOfPeople", "0");
                             params.put("totalNumberOfPeople", eventTotalNumberOfPeopleFieldValue);
                             params.put("description", eventDescriptionFieldValue);
                             params.put("owner", eventOwnerValue);
@@ -311,7 +296,7 @@ public class CreateEventActivity extends AppCompatActivity {
         dateCreateEvent        = findViewById(R.id.date_createevent);
         timeCreateEvent        = findViewById(R.id.time_createevent);
         placeCreateEvent       = findViewById(R.id.place_createevent);
-        minPeopleCreateEvent   = findViewById(R.id.initial_people_createevent);
+
         maxPeopleCreateEvent   = findViewById(R.id.max_people_createevent);
         descriptionCreateEvent = findViewById(R.id.description_createevent);
 
@@ -327,15 +312,11 @@ public class CreateEventActivity extends AppCompatActivity {
         if(placeCreateEvent.getText().toString().equals("")){
             return "Please Complete the \n\"Place\" Field";
         }
-        if(minPeopleCreateEvent.getText().toString().equals("")){
-            return "Please Complete the \n\"No.\" Field";
-        }
+
         if(maxPeopleCreateEvent.getText().toString().equals("")){
-            return "Please Complete the \n\"Max\" Field";
+            return "Please Complete the \n\"Nr. of People\" Field";
         }
-        if(Integer.parseInt(maxPeopleCreateEvent.getText().toString())<= Integer.parseInt(minPeopleCreateEvent.getText().toString())){
-            return "No. Should be lower \nthan Max";
-        }
+
         return "All Completed";
     };
 
