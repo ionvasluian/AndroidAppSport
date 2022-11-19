@@ -45,6 +45,7 @@
                 android:id="@+id/signin"
                 android:layout_width="165dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"
 
                 android:layout_alignParentTop="true"
@@ -61,17 +62,23 @@
                 android:textStyle="bold"
                 ></android.widget.Button>
 
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></Space>
+
             <android.widget.Button
                 android:id="@+id/register"
-                android:layout_width="167dp"
+                android:layout_width="165dp"
                 android:layout_height="wrap_content"
-
+                android:layout_weight="1"
                 style="?android:attr/borderlessButtonStyle"
 
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
 
                 android:layout_marginTop="90dp"
+                android:layout_marginEnd="30dp"
 
                 android:background="@drawable/button_rectangle"
                 android:fontFamily="@font/montserrat_regular"
@@ -91,7 +98,10 @@
         android:layout_height="395dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
 
         android:gravity="top"
 
