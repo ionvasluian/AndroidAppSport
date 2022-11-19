@@ -91,7 +91,14 @@
 
     </LinearLayout>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Space
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </Space>
     <RelativeLayout
         android:id="@+id/container1"
         android:layout_width="332dp"
@@ -100,12 +107,20 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_weight="500"
+
+
 
         android:gravity="top"
 
-        android:layout_gravity="center"></RelativeLayout>
+        ></RelativeLayout>
+    <Space
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </Space>
+</LinearLayout>
+
 
 
 
