@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        Context context = getActivity().getApplicationContext();
 
         EditText email = (EditText) view.findViewById(R.id.email);
         EditText password = (EditText) view.findViewById(R.id.password);
@@ -51,25 +54,27 @@ public class LoginFragment extends Fragment {
 
                 if (emailFieldValue.isEmpty() || passwordFieldValue.isEmpty()) {
                     Toast.makeText(
-                            getActivity().getApplicationContext(),
+                            context,
                             "Complete both fields",
                             Toast.LENGTH_LONG
                     ).show();
                 } else {
-                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    RequestQueue queue = Volley.newRequestQueue(context);
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     if (response.equals("true")) {
                                         Toast.makeText(
-                                                getActivity().getApplicationContext(),
+                                                context,
                                                 "You logged in",
                                                 Toast.LENGTH_LONG
                                         ).show();
+                                        Intent intent = new Intent(context, ViewEventActivity.class);
+                                        startActivity(intent);
                                     } else {
                                         Toast.makeText(
-                                                getActivity().getApplicationContext(),
+                                                context,
                                                 "Wrong email or password",
                                                 Toast.LENGTH_LONG
                                         ).show();
