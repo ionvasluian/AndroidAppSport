@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="332dp"
-    android:layout_height="485dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".RegisterFragment">
 
     <LinearLayout
@@ -20,13 +20,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center|top">
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginStart="20dp"
+
                     android:background="@drawable/leftside_username"
 
                     android:outlineProvider="none"></ImageView>
@@ -48,13 +49,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center|top">
                 <ImageView
 
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
+
                     android:background="@drawable/leftside_username"
 
                     android:outlineProvider="none"></ImageView>
@@ -75,13 +77,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center|top">
                 <ImageView
 
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
+
                     android:background="@drawable/leftside_username"
 
                     android:outlineProvider="none"></ImageView>
@@ -102,13 +105,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center|top">
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
+
                     android:background="@drawable/leftside_login"
                     android:outlineProvider="none"></ImageView>
                 <EditText
@@ -128,13 +132,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center|top">
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
+
                     android:background="@drawable/leftside_register"
                     android:outlineProvider="none"></ImageView>
                 <EditText
@@ -155,13 +160,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                >
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
+
                     android:background="@drawable/leftside_trupka"
                     android:outlineProvider="none"></ImageView>
                 <EditText
@@ -184,13 +191,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="20dp"
+
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/leftside_birthday"
                     android:outlineProvider="none"></ImageView>

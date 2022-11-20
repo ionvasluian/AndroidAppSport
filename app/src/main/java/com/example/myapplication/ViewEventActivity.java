@@ -45,7 +45,7 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event);
         Context context = getBaseContext();
-        FloatingActionButton createEvent;
+        FloatingActionButton createEvent, listEvents;
         ImageView createaEvent;
         ListView listView =  new ListView(this);
         RecyclerView recyclerView;
@@ -122,6 +122,16 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
 
         createEvent = findViewById(R.id.add_fab);
         createaEvent = findViewById(R.id.back_event_list);
+        listEvents = findViewById(R.id.list_events_user);
+
+
+        listEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewEventActivity.this, UserEventListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         createaEvent.setOnClickListener(new View.OnClickListener() {
             @Override
