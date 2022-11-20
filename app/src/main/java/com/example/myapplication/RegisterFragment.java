@@ -15,18 +15,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.security.MessageDigest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +38,27 @@ import java.util.Locale;
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
-    final Calendar calendarr = Calendar.getInstance();
+    final Calendar calendar = Calendar.getInstance();
+
+    Button register;
+    EditText firstName;
+    EditText lastName;
+    EditText userName;
+    EditText email;
+    EditText password;
+    EditText phoneNumber;
     EditText birthday;
+
+    String firstNameFieldValue;
+    String lastNameFieldValue;
+    String userNameFieldValue;
+    String emailFieldValue;
+    String passwordFieldValue;
+    String phoneNumberFieldValue;
     String birthdayFieldValue;
+
+    private static final String url = "http://52.86.7.191:443/createUser";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -92,24 +114,24 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        View contextview = view;
-        Button register;
-        EditText first_name, last_name, username, email, passwd, phone_no, birthday;
-        register = view.findViewById(R.id.signupbutton);
-        first_name = view.findViewById(R.id.first_name_signup);
-        last_name = view.findViewById(R.id.last_name_signup);
-        username = view.findViewById(R.id.username_signup);
-        passwd = view.findViewById(R.id.passwordsignup);
-        phone_no = view.findViewById(R.id.callphoneNumber);
-        birthday = view.findViewById(R.id.birthday_date);
+        View contextView = view;
+
+        register    = view.findViewById(R.id.signupbutton);
+        firstName   = view.findViewById(R.id.first_name_signup);
+        lastName    = view.findViewById(R.id.last_name_signup);
+        userName    = view.findViewById(R.id.username_signup);
+        email       = view.findViewById(R.id.emailsignup);
+        password    = view.findViewById(R.id.passwordsignup);
+        phoneNumber = view.findViewById(R.id.callphoneNumber);
+        birthday    = view.findViewById(R.id.birthday_date);
 
         DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
-                calendarr.set(Calendar.YEAR, year);
-                calendarr.set(Calendar.MONTH,month);
-                calendarr.set(Calendar.DAY_OF_MONTH,day);
-                updateDateOnLabel(contextview);
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DAY_OF_MONTH,day);
+                updateDateOnLabel(contextView);
             }
         };
 
@@ -120,9 +142,9 @@ public class RegisterFragment extends Fragment {
                         getActivity(),
                         R.style.DialogTheme,
                         datePicker,
-                        calendarr.get(Calendar.YEAR),
-                        calendarr.get(Calendar.MONTH),
-                        calendarr.get(Calendar.DAY_OF_MONTH)
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)
                 ).show();
             }
         });
@@ -130,18 +152,87 @@ public class RegisterFragment extends Fragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ViewEventActivity.class);
-                startActivity(intent);
+                firstNameFieldValue   = firstName.getText().toString().trim();
+                lastNameFieldValue    = lastName.getText().toString().trim();
+                userNameFieldValue    = userName.getText().toString().trim();
+                emailFieldValue       = email.getText().toString().trim();
+                passwordFieldValue    = password.getText().toString().trim();
+                phoneNumberFieldValue = phoneNumber.getText().toString().trim();
+                birthdayFieldValue    = birthday.getText().toString().trim();
+
+                if (firstNameFieldValue.isEmpty()   ||
+                    lastNameFieldValue.isEmpty()    ||
+                    userNameFieldValue.isEmpty()    ||
+                    emailFieldValue.isEmpty()       ||
+                    passwordFieldValue.isEmpty()    ||
+                    phoneNumberFieldValue.isEmpty() ||
+                    birthdayFieldValue.isEmpty())
+                {
+                    Toast.makeText(
+                            view.getContext(),
+                            "Complete all fields",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+                else
+                {
+                    // hashing password
+                    try {
+                        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                        messageDigest.update(passwordFieldValue.getBytes());
+                        passwordFieldValue = new String(messageDigest.digest());
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+
+                    RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.e("ceva", response);
+                                    Intent intent = new Intent(getActivity(), ViewEventActivity.class);
+                                    startActivity(intent);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(
+                                            view.getContext(),
+                                            "Could not connect to the server",
+                                            Toast.LENGTH_LONG
+                                    ).show();
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("userFirstName", firstNameFieldValue);
+                            params.put("userLastName", lastNameFieldValue);
+                            params.put("userName", userNameFieldValue);
+                            params.put("userPassword", passwordFieldValue);
+                            params.put("userEmail", emailFieldValue);
+                            params.put("userPhoneNumber", phoneNumberFieldValue);
+                            params.put("userBirthday", birthdayFieldValue);
+                            return params;
+                        }
+                    };
+                    queue.add(stringRequest);
+
+                }
+
             }
         });
 
 
 
     }
-    private void updateDateOnLabel(View view){
+
+    private void updateDateOnLabel(View view) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         birthday = view.findViewById(R.id.birthday_date);
-        birthday.setText(String.format("%s", dateFormat.format(calendarr.getTime())));
+        birthday.setText(String.format("%s", dateFormat.format(calendar.getTime())));
         birthdayFieldValue = birthday.getText().toString().trim();
 
     }

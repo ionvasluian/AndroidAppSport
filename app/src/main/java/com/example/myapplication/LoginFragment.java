@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,11 +25,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class LoginFragment extends Fragment {
+    String emailFieldValue;
+    String passwordFieldValue;
+
     String url = "http://52.86.7.191:443/authenticateUser";
 
     public static LoginFragment newInstance() {
@@ -46,30 +53,41 @@ public class LoginFragment extends Fragment {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailFieldValue = email.getText().toString().trim();
-                String passwordFieldValue = password.getText().toString().trim();
+                emailFieldValue    = email.getText().toString().trim();
+                passwordFieldValue = password.getText().toString().trim();
 
                 if (emailFieldValue.isEmpty() || passwordFieldValue.isEmpty()) {
                     Toast.makeText(
-                            getActivity().getApplicationContext(),
+                            view.getContext(),
                             "Complete both fields",
                             Toast.LENGTH_LONG
                     ).show();
                 } else {
-                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    // hashing password
+                    try {
+                        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                        messageDigest.update(passwordFieldValue.getBytes());
+                        passwordFieldValue = new String(messageDigest.digest());
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+
+                    RequestQueue queue = Volley.newRequestQueue(view.getContext());
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     if (response.equals("true")) {
                                         Toast.makeText(
-                                                getActivity().getApplicationContext(),
+                                                view.getContext(),
                                                 "You logged in",
                                                 Toast.LENGTH_LONG
                                         ).show();
+                                        Intent intent = new Intent(getActivity(), ViewEventActivity.class);
+                                        startActivity(intent);
                                     } else {
                                         Toast.makeText(
-                                                getActivity().getApplicationContext(),
+                                                view.getContext(),
                                                 "Wrong email or password",
                                                 Toast.LENGTH_LONG
                                         ).show();
