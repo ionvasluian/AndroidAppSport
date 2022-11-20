@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,10 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
@@ -20,13 +24,19 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RegisterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
-
+    final Calendar calendarr = Calendar.getInstance();
+    EditText birthday;
+    String birthdayFieldValue;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,13 +92,40 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button register, googleRegister;
+        View contextview = view;
+        Button register;
+        EditText first_name, last_name, username, email, passwd, phone_no, birthday;
         register = view.findViewById(R.id.signupbutton);
-        googleRegister = view.findViewById(R.id.googleSignUpButton);
+        first_name = view.findViewById(R.id.first_name_signup);
+        last_name = view.findViewById(R.id.last_name_signup);
+        username = view.findViewById(R.id.username_signup);
+        passwd = view.findViewById(R.id.passwordsignup);
+        phone_no = view.findViewById(R.id.callphoneNumber);
+        birthday = view.findViewById(R.id.birthday_date);
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                calendarr.set(Calendar.YEAR, year);
+                calendarr.set(Calendar.MONTH,month);
+                calendarr.set(Calendar.DAY_OF_MONTH,day);
+                updateDateOnLabel(contextview);
+            }
+        };
 
+        birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(
+                        getActivity(),
+                        R.style.DialogTheme,
+                        datePicker,
+                        calendarr.get(Calendar.YEAR),
+                        calendarr.get(Calendar.MONTH),
+                        calendarr.get(Calendar.DAY_OF_MONTH)
+                ).show();
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,34 +135,14 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        googleRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                BeginSignInRequest signInRequest = BeginSignInRequest.builder()
-//                        .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-//                                .setSupported(true).setServerClientId(getString(R.string.default_web_client_id))
-//                                .setFilterByAuthorizedAccounts(true)
-//                                .build())
-//                        .build();
 
 
-                GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.web_client_id))//you can also use R.string.default_web_client_id
-                        .requestEmail()
-                        .build();
-                GoogleApiClient googleApiClient=new GoogleApiClient.Builder(getActivity())
-                        .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                            @Override
-                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                                
-                            }
-                        })
-                        .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
-                        .build();
-                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(intent, 1);
-            }
-        });
     }
-    
+    private void updateDateOnLabel(View view){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        birthday = view.findViewById(R.id.birthday_date);
+        birthday.setText(String.format("%s", dateFormat.format(calendarr.getTime())));
+        birthdayFieldValue = birthday.getText().toString().trim();
+
+    }
 }

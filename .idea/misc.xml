@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/background_login.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/basketball_imageview.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/bg_spinner.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/birthday_left.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/checkers_imageview.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/chess_imageview.xml" value="0.1845" />
@@ -21,8 +22,10 @@
         <entry key="app/src/main/res/drawable/golf_imageview.xml" value="0.1845" />
         <entry key="app/src/main/res/drawable/google_register_button.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1875" />
+        <entry key="app/src/main/res/drawable/leftside_birthday.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/leftside_login.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/leftside_register.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/leftside_trupka.xml" value="0.2785" />
         <entry key="app/src/main/res/drawable/leftside_username.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/not_pressed_color.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/number_people_background.xml" value="0.184" />
@@ -41,6 +44,7 @@
         <entry key="app/src/main/res/layout/activity_create_event.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.13247863247863248" />
+        <entry key="app/src/main/res/layout/activity_user_event_list.xml" value="0.22564102564102564" />
         <entry key="app/src/main/res/layout/activity_view_event.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_view_event_element.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_view_event_information.xml" value="0.22" />

@@ -162,6 +162,7 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 eventCategoryFieldValue = adapterView.getItemAtPosition(position).toString().trim();
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
@@ -251,7 +252,7 @@ public class CreateEventActivity extends AppCompatActivity {
                             eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
                             eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
                             eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
-
+                            Log.e("Result", eventCategoryFieldValue);
 
                             params.put("name", eventNameFieldValue);
                             params.put("date", eventDateFieldValue);
