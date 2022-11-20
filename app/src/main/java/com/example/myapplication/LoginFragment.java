@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,6 +79,15 @@ public class LoginFragment extends Fragment {
                                 @Override
                                 public void onResponse(String response) {
                                     if (response.equals("true")) {
+                                        SharedPreferences sharedPreferences = getActivity()
+                                                .getSharedPreferences(
+                                                        MainActivity.PREFS_NAME,
+                                                        0
+                                                );
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putBoolean("isUserLoggedIn", true);
+                                        editor.apply();
+
                                         Toast.makeText(
                                                 view.getContext(),
                                                 "You logged in",

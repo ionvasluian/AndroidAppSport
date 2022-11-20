@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -190,7 +191,16 @@ public class RegisterFragment extends Fragment {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    Log.e("ceva", response);
+                                    SharedPreferences sharedPreferences = getActivity()
+                                            .getSharedPreferences(
+                                                    MainActivity.PREFS_NAME,
+                                                    0
+                                            );
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean("isUserLoggedIn", true);
+                                    editor.putString("userID", response);
+                                    editor.apply();
+
                                     Intent intent = new Intent(getActivity(), ViewEventActivity.class);
                                     startActivity(intent);
                                 }
