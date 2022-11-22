@@ -174,6 +174,12 @@ public class RegisterFragment extends Fragment {
                             "Complete all fields",
                             Toast.LENGTH_LONG
                     ).show();
+                }else if(!isEmailValid(emailFieldValue)){
+                    Toast.makeText(
+                            view.getContext(),
+                            "It should be a valid email",
+                            Toast.LENGTH_LONG
+                    ).show();
                 }
                 else
                 {
@@ -245,5 +251,9 @@ public class RegisterFragment extends Fragment {
         birthday.setText(String.format("%s", dateFormat.format(calendar.getTime())));
         birthdayFieldValue = birthday.getText().toString().trim();
 
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
