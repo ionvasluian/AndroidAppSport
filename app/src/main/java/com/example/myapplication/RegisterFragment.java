@@ -217,6 +217,7 @@ public class RegisterFragment extends Fragment {
                                     editor.putBoolean("isUserLoggedIn", true);
                                     try {
                                         editor.putString("userID", responseJson.getString("user_id"));
+                                        editor.putString("userName", userNameFieldValue);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

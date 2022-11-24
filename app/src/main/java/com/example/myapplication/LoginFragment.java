@@ -106,6 +106,7 @@ public class LoginFragment extends Fragment {
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             editor.putBoolean("isUserLoggedIn", true);
                                             editor.putString("userID", responseJson.getString("user_id"));
+                                            getUserName(view, responseJson.getString("user_id"));
                                             editor.apply();
 
                                             Toast.makeText(
@@ -150,6 +151,43 @@ public class LoginFragment extends Fragment {
     }
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    void getUserName(View view, String id) {
+        String url = "http://52.86.7.191:443/getUserInfoById?id="+id;
+        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject responseJsonObject = null;
+                        JSONObject responseJson = null;
+                        try {
+                            responseJsonObject = new JSONObject(response);
+                            responseJson = responseJsonObject.getJSONObject("response");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            SharedPreferences sharedPreferences = getActivity()
+                                    .getSharedPreferences(
+                                            MainActivity.PREFS_NAME,
+                                            0
+                                    );
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userName", responseJson.getString("user_name"));
+                            editor.apply();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }); 
+        queue.add(stringRequest);
     }
 
 }

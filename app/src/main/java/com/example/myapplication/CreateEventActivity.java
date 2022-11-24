@@ -64,7 +64,7 @@ public class CreateEventActivity extends AppCompatActivity {
     String eventCategoryFieldValue;
     String eventTotalNumberOfPeopleFieldValue;
     String eventDescriptionFieldValue;
-    String eventOwnerNameFieldValue = "someName";
+    String eventOwnerNameFieldValue;
     String eventOwnerIdFieldValue;
     String eventPhoneNumberFieldValue;
 
@@ -89,6 +89,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
         eventOwnerIdFieldValue = sharedPref.getString("userID", "");
+        eventOwnerNameFieldValue = sharedPref.getString("userName", "");
         Log.e("ID", eventOwnerIdFieldValue);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(

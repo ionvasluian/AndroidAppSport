@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean showOneTapUI = true;
 
     public static String PREFS_NAME = "isLoggedIn";
+    public static String userName;
 
     Button login;
     Button register;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
         boolean isUserLoggedIn = sharedPreferences.getBoolean("isUserLoggedIn", false);
         String userID = sharedPreferences.getString("userID", "-1");
+        userName = sharedPreferences.getString("userName", "blank");
 
         if (isUserLoggedIn) {
             Intent intent = new Intent(MainActivity.this, ViewEventActivity.class);
