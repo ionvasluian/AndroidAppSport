@@ -87,15 +87,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
                     Intent intent = new Intent(MapActivity.this, CreateEventActivity.class);
                     intent.putExtra("from_map", true);
-                    intent.putExtra("old_event",false);
                     intent.putExtra("event_name", getIntent().getStringExtra("event_name"));
                     intent.putExtra("event_date", getIntent().getStringExtra("event_date"));
                     intent.putExtra("event_time", getIntent().getStringExtra("event_time"));
                     intent.putExtra("event_place",address);
                     intent.putExtra("event_category",getIntent().getStringExtra("event_category"));
                     intent.putExtra("event_number_of_people",getIntent().getStringExtra("event_number_of_people"));
-//                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
+                    intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
                     intent.putExtra("event_description", getIntent().getStringExtra("event_description"));
+                    intent.putExtra("event_id",getIntent().getStringExtra("event_id"));
                     startActivity(intent);
 
                 } catch (IOException e) {

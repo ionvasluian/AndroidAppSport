@@ -77,6 +77,8 @@ public class ViewEventInformation extends AppCompatActivity {
                 intent.putExtra("event_place",place_event.getText().toString());
                 intent.putExtra("event_category",cat);
                 intent.putExtra("event_number_of_people",numberOfPeople.getText().toString());
+                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
+                intent.putExtra("event_id", getIntent().getStringExtra("event_id"));
 //                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
                 intent.putExtra("event_description", description_event.getText().toString());
                 Log.e("Debugging", name_of_event);
