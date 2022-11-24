@@ -194,6 +194,7 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
                                     String event_time = jsonObject.getString("time");
                                     String event_place = jsonObject.getString("place");
                                     String description = jsonObject.getString("description");
+//                                    String phone_number = jsonObject.getString("phone_number");
 
                                     intent.putExtra("name", event_name);
                                     intent.putExtra("date", event_date);
@@ -202,6 +203,7 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
                                     intent.putExtra("category", category);
                                     intent.putExtra("numberOfPeople", number_of_people);
                                     intent.putExtra("description", description);
+//                                    intent.putExtra("phone_number",phone_number);
                                     startActivityForResult(intent,1);
                                     Log.e("Entered", category + " , " + number_of_people + " , " + event_name);
                                 }

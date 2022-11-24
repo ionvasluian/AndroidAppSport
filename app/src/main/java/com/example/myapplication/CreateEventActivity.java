@@ -42,6 +42,7 @@ import java.util.Map;
 
 public class CreateEventActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay, mHour, mMinute;
+    boolean coming_from_old_event = false;
     final Calendar calendar = Calendar.getInstance();
 
     EditText nameCreateEvent;
@@ -50,6 +51,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText placeCreateEvent;
     EditText maxPeopleCreateEvent;
     EditText descriptionCreateEvent;
+    EditText phoneNumberCreateEvent;
     ImageView backButton;
     Button createEventButton;
     Spinner category;
@@ -62,6 +64,7 @@ public class CreateEventActivity extends AppCompatActivity {
     String eventTotalNumberOfPeopleFieldValue;
     String eventDescriptionFieldValue;
     String eventOwnerValue = "NoName";
+    String eventPhoneNumber;
 
     String url = "http://52.86.7.191:443/createEvent";
 
@@ -79,6 +82,7 @@ public class CreateEventActivity extends AppCompatActivity {
         backButton             = findViewById(R.id.back_createevent);
         category               = findViewById(R.id.category_createevent);
         createEventButton      = findViewById(R.id.createEventButton);
+        phoneNumberCreateEvent = findViewById(R.id.phone_number_createevent);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
@@ -87,6 +91,21 @@ public class CreateEventActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(R.layout.spinner_style);
         category.setAdapter(adapter);
+
+        coming_from_old_event = getIntent().getBooleanExtra("old_event",false);
+        if(coming_from_old_event){
+            nameCreateEvent.setText(getIntent().getStringExtra("name"));
+            dateCreateEvent.setText(getIntent().getStringExtra("date"));
+            timeCreateEvent.setText(getIntent().getStringExtra("time"));
+            placeCreateEvent.setText(getIntent().getStringExtra("place"));
+            int position = adapter.getPosition(getIntent().getStringExtra("category"));
+            category.setSelection(position);
+            category.setClickable(false);
+            maxPeopleCreateEvent.setText(getIntent().getStringExtra("number_of_people"));
+//            phoneNumberCreateEvent.setText(getIntent().getStringExtra("phone_number"));
+            descriptionCreateEvent.setText(getIntent().getStringExtra("category"));
+            createEventButton.setText("Save");
+        }
 
         DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -252,6 +271,7 @@ public class CreateEventActivity extends AppCompatActivity {
                             eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
                             eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
                             eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
+                            eventPhoneNumber = phoneNumberCreateEvent.getText().toString().trim();
                             Log.e("Result", eventCategoryFieldValue);
 
                             params.put("name", eventNameFieldValue);
@@ -263,6 +283,7 @@ public class CreateEventActivity extends AppCompatActivity {
                             params.put("totalNumberOfPeople", eventTotalNumberOfPeopleFieldValue);
                             params.put("description", eventDescriptionFieldValue);
                             params.put("owner", eventOwnerValue);
+                            params.put("phone_number",eventPhoneNumber);
 
                             return params;
                         }

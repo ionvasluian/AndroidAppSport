@@ -63,7 +63,14 @@ public class LoginFragment extends Fragment {
                             "Complete both fields",
                             Toast.LENGTH_LONG
                     ).show();
-                } else {
+                }else if(!isEmailValid(emailFieldValue)) {
+                    Toast.makeText(
+                            view.getContext(),
+                            "Please insert a valid email",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }else
+                 {
                     // hashing password
                     try {
                         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
@@ -123,6 +130,9 @@ public class LoginFragment extends Fragment {
         });
 
         return view;
+    }
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
 }
