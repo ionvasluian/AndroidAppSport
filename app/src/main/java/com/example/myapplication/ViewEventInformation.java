@@ -69,6 +69,7 @@ public class ViewEventInformation extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewEventInformation.this, CreateEventActivity.class);
+                intent.putExtra("from_map", false);
                 intent.putExtra("old_event", true);
                 intent.putExtra("event_name", name_of_event);
                 intent.putExtra("event_date", date_event.getText().toString());
@@ -78,6 +79,7 @@ public class ViewEventInformation extends AppCompatActivity {
                 intent.putExtra("event_number_of_people",numberOfPeople.getText().toString());
 //                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
                 intent.putExtra("event_description", description_event.getText().toString());
+                Log.e("Debugging", name_of_event);
                 startActivity(intent);
 
             }

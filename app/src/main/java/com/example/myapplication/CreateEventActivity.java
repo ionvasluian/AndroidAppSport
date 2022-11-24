@@ -44,6 +44,7 @@ import java.util.Map;
 public class CreateEventActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay, mHour, mMinute;
     boolean coming_from_old_event = false;
+    boolean coming_from_map = false;
     final Calendar calendar = Calendar.getInstance();
 
     EditText nameCreateEvent;
@@ -87,6 +88,14 @@ public class CreateEventActivity extends AppCompatActivity {
         phoneNumberCreateEvent = findViewById(R.id.phone_number_createevent);
 
 
+        nameCreateEvent.setText("");
+        dateCreateEvent.setText("");
+        placeCreateEvent.setText("");
+        maxPeopleCreateEvent.setText("");
+        descriptionCreateEvent.setText("");
+        phoneNumberCreateEvent.setText("");
+        eventCategoryFieldValue = "";
+
         SharedPreferences sharedPref = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
         eventOwnerIdFieldValue = sharedPref.getString("userID", "");
         eventOwnerNameFieldValue = sharedPref.getString("userName", "");
@@ -101,17 +110,19 @@ public class CreateEventActivity extends AppCompatActivity {
         category.setAdapter(adapter);
 
         coming_from_old_event = getIntent().getBooleanExtra("old_event",false);
-        if(coming_from_old_event){
-            nameCreateEvent.setText(getIntent().getStringExtra("eventName"));
-            dateCreateEvent.setText(getIntent().getStringExtra("eventDate"));
-            timeCreateEvent.setText(getIntent().getStringExtra("eventTime"));
-            placeCreateEvent.setText(getIntent().getStringExtra("eventPlace"));
-            int position = adapter.getPosition(getIntent().getStringExtra("eventFilter"));
+        coming_from_map = getIntent().getBooleanExtra("from_map",false);
+        if(coming_from_old_event || coming_from_map){
+            nameCreateEvent.setText(getIntent().getStringExtra("event_name"));
+            dateCreateEvent.setText(getIntent().getStringExtra("event_date"));
+            timeCreateEvent.setText(getIntent().getStringExtra("event_time"));
+            placeCreateEvent.setText(getIntent().getStringExtra("event_place"));
+            Log.e("Debugging",getIntent().getStringExtra("event_place"));
+            int position = adapter.getPosition(getIntent().getStringExtra("event_category"));
             category.setSelection(position);
             category.setClickable(false);
-            maxPeopleCreateEvent.setText(getIntent().getStringExtra("eventNumberOfPeople"));
+            maxPeopleCreateEvent.setText(getIntent().getStringExtra("event_number_of_people"));
 //            phoneNumberCreateEvent.setText(getIntent().getStringExtra("phone_number"));
-            descriptionCreateEvent.setText(getIntent().getStringExtra("eventDescription"));
+            descriptionCreateEvent.setText(getIntent().getStringExtra("event_description"));
             createEventButton.setText("Save");
         }
 
@@ -124,6 +135,9 @@ public class CreateEventActivity extends AppCompatActivity {
                 updateDateOnLabel();
             }
         };
+
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,7 +195,17 @@ public class CreateEventActivity extends AppCompatActivity {
         placeCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                eventPlaceFieldValue = placeCreateEvent.getText().toString();
+                Log.e("Debugging", "entered");
+                Intent intent = new Intent(CreateEventActivity.this, MapActivity.class);
+                intent.putExtra("event_name", nameCreateEvent.getText().toString());
+                intent.putExtra("event_date", dateCreateEvent.getText().toString());
+                intent.putExtra("event_time", timeCreateEvent.getText().toString());
+                intent.putExtra("event_place",placeCreateEvent.getText().toString());
+                intent.putExtra("event_category",eventCategoryFieldValue);
+                intent.putExtra("event_number_of_people",maxPeopleCreateEvent.getText().toString());
+//                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
+                intent.putExtra("event_description", descriptionCreateEvent.getText().toString());
+                startActivity(intent);
             }
         });
 
