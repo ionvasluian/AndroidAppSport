@@ -25,6 +25,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -197,6 +200,14 @@ public class RegisterFragment extends Fragment {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
+                                    JSONObject responseJsonObject = null;
+                                    JSONObject responseJson = null;
+                                    try {
+                                        responseJsonObject = new JSONObject(response);
+                                        responseJson = responseJsonObject.getJSONObject("response");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     SharedPreferences sharedPreferences = getActivity()
                                             .getSharedPreferences(
                                                     MainActivity.PREFS_NAME,
@@ -204,9 +215,21 @@ public class RegisterFragment extends Fragment {
                                             );
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putBoolean("isUserLoggedIn", true);
-                                    editor.putString("userID", response);
+                                    try {
+                                        editor.putString("userID", responseJson.getString("user_id"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     editor.apply();
-
+                                    try {
+                                        Toast.makeText(
+                                                view.getContext(),
+                                                responseJson.getString("user_id"),
+                                                Toast.LENGTH_LONG
+                                        ).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     Intent intent = new Intent(getActivity(), ViewEventActivity.class);
                                     startActivity(intent);
                                 }

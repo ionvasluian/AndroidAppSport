@@ -26,6 +26,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -85,29 +88,43 @@ public class LoginFragment extends Fragment {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    if (response.equals("true")) {
-                                        SharedPreferences sharedPreferences = getActivity()
-                                                .getSharedPreferences(
-                                                        MainActivity.PREFS_NAME,
-                                                        0
-                                                );
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putBoolean("isUserLoggedIn", true);
-                                        editor.apply();
+                                    JSONObject responseJsonObject = null;
+                                    JSONObject responseJson = null;
+                                    try {
+                                        responseJsonObject = new JSONObject(response);
+                                        responseJson = responseJsonObject.getJSONObject("response");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        if (responseJson.getString("auth").equals("success")) {
+                                            SharedPreferences sharedPreferences = getActivity()
+                                                    .getSharedPreferences(
+                                                            MainActivity.PREFS_NAME,
+                                                            0
+                                                    );
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putBoolean("isUserLoggedIn", true);
+                                            editor.putString("userID", responseJson.getString("user_id"));
+                                            editor.apply();
 
-                                        Toast.makeText(
-                                                view.getContext(),
-                                                "You logged in",
-                                                Toast.LENGTH_LONG
-                                        ).show();
-                                        Intent intent = new Intent(getActivity(), ViewEventActivity.class);
-                                        startActivity(intent);
-                                    } else {
-                                        Toast.makeText(
-                                                view.getContext(),
-                                                "Wrong email or password",
-                                                Toast.LENGTH_LONG
-                                        ).show();
+                                            Toast.makeText(
+                                                    view.getContext(),
+                                                    "You logged in",
+                                                    Toast.LENGTH_LONG
+                                            ).show();
+                                            Intent intent = new Intent(getActivity(), ViewEventActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else if (responseJson.getString("auth").equals("unsuccess")) {
+                                            Toast.makeText(
+                                                    view.getContext(),
+                                                    "Wrong email or password",
+                                                    Toast.LENGTH_LONG
+                                            ).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
                                 }
                             },

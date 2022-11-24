@@ -22,8 +22,8 @@ public class ViewEventInformation extends AppCompatActivity {
         TextView event_name, numberOfPeople,date_event,time_event,place_event,description_event;
         ImageView category_event, edit_event;
         String cat, name_of_event;
-        cat = getIntent().getStringExtra("category");
-        name_of_event = getIntent().getStringExtra("name");
+        cat = getIntent().getStringExtra("event_filters_id");
+        name_of_event = getIntent().getStringExtra("event_name");
         Log.d("Result",cat);
 
         event_name = findViewById(R.id.event_name_eventinfo);
@@ -36,11 +36,11 @@ public class ViewEventInformation extends AppCompatActivity {
         edit_event = findViewById(R.id.edit_event);
 
         event_name.setText(cat);
-        numberOfPeople.setText(getIntent().getStringExtra("numberOfPeople"));
-        date_event.setText(getIntent().getStringExtra("date"));
-        time_event.setText(getIntent().getStringExtra("time"));
-        place_event.setText(getIntent().getStringExtra("place"));
-        description_event.setText(getIntent().getStringExtra("description"));
+        numberOfPeople.setText(getIntent().getStringExtra("event_number_of_people"));
+        date_event.setText(getIntent().getStringExtra("event_date"));
+        time_event.setText(getIntent().getStringExtra("event_time"));
+        place_event.setText(getIntent().getStringExtra("event_place"));
+        description_event.setText(getIntent().getStringExtra("event_description"));
 
 
         if(cat.toLowerCase().equals("volleyball")){
@@ -70,14 +70,14 @@ public class ViewEventInformation extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ViewEventInformation.this, CreateEventActivity.class);
                 intent.putExtra("old_event", true);
-                intent.putExtra("name", name_of_event);
-                intent.putExtra("date", date_event.getText().toString());
-                intent.putExtra("time", time_event.getText().toString());
-                intent.putExtra("place",place_event.getText().toString());
-                intent.putExtra("category",cat);
-                intent.putExtra("number_of_people",numberOfPeople.getText().toString());
+                intent.putExtra("event_name", name_of_event);
+                intent.putExtra("event_date", date_event.getText().toString());
+                intent.putExtra("event_time", time_event.getText().toString());
+                intent.putExtra("event_place",place_event.getText().toString());
+                intent.putExtra("event_category",cat);
+                intent.putExtra("event_number_of_people",numberOfPeople.getText().toString());
 //                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
-                intent.putExtra("description", description_event.getText().toString());
+                intent.putExtra("event_description", description_event.getText().toString());
                 startActivity(intent);
 
             }

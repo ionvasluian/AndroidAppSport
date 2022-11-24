@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,8 +64,9 @@ public class CreateEventActivity extends AppCompatActivity {
     String eventCategoryFieldValue;
     String eventTotalNumberOfPeopleFieldValue;
     String eventDescriptionFieldValue;
-    String eventOwnerValue = "NoName";
-    String eventPhoneNumber;
+    String eventOwnerNameFieldValue = "someName";
+    String eventOwnerIdFieldValue;
+    String eventPhoneNumberFieldValue;
 
     String url = "http://52.86.7.191:443/createEvent";
 
@@ -84,6 +86,11 @@ public class CreateEventActivity extends AppCompatActivity {
         createEventButton      = findViewById(R.id.createEventButton);
         phoneNumberCreateEvent = findViewById(R.id.phone_number_createevent);
 
+
+        SharedPreferences sharedPref = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
+        eventOwnerIdFieldValue = sharedPref.getString("userID", "");
+        Log.e("ID", eventOwnerIdFieldValue);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.categories,
@@ -94,16 +101,16 @@ public class CreateEventActivity extends AppCompatActivity {
 
         coming_from_old_event = getIntent().getBooleanExtra("old_event",false);
         if(coming_from_old_event){
-            nameCreateEvent.setText(getIntent().getStringExtra("name"));
-            dateCreateEvent.setText(getIntent().getStringExtra("date"));
-            timeCreateEvent.setText(getIntent().getStringExtra("time"));
-            placeCreateEvent.setText(getIntent().getStringExtra("place"));
-            int position = adapter.getPosition(getIntent().getStringExtra("category"));
+            nameCreateEvent.setText(getIntent().getStringExtra("eventName"));
+            dateCreateEvent.setText(getIntent().getStringExtra("eventDate"));
+            timeCreateEvent.setText(getIntent().getStringExtra("eventTime"));
+            placeCreateEvent.setText(getIntent().getStringExtra("eventPlace"));
+            int position = adapter.getPosition(getIntent().getStringExtra("eventFilter"));
             category.setSelection(position);
             category.setClickable(false);
-            maxPeopleCreateEvent.setText(getIntent().getStringExtra("number_of_people"));
+            maxPeopleCreateEvent.setText(getIntent().getStringExtra("eventNumberOfPeople"));
 //            phoneNumberCreateEvent.setText(getIntent().getStringExtra("phone_number"));
-            descriptionCreateEvent.setText(getIntent().getStringExtra("category"));
+            descriptionCreateEvent.setText(getIntent().getStringExtra("eventDescription"));
             createEventButton.setText("Save");
         }
 
@@ -271,19 +278,20 @@ public class CreateEventActivity extends AppCompatActivity {
                             eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
                             eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
                             eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
-                            eventPhoneNumber = phoneNumberCreateEvent.getText().toString().trim();
+                            eventPhoneNumberFieldValue = phoneNumberCreateEvent.getText().toString().trim();
                             Log.e("Result", eventCategoryFieldValue);
 
-                            params.put("name", eventNameFieldValue);
-                            params.put("date", eventDateFieldValue);
-                            params.put("time", FormatTime(eventTimeFieldValue));
-                            params.put("place", eventPlaceFieldValue);
-                            params.put("category", eventCategoryFieldValue);
-                            params.put("numberOfPeople", "0");
-                            params.put("totalNumberOfPeople", eventTotalNumberOfPeopleFieldValue);
-                            params.put("description", eventDescriptionFieldValue);
-                            params.put("owner", eventOwnerValue);
-                            params.put("phone_number",eventPhoneNumber);
+                            params.put("eventName", eventNameFieldValue);
+                            params.put("eventDate", eventDateFieldValue);
+                            params.put("eventTime", FormatTime(eventTimeFieldValue));
+                            params.put("eventPlace", eventPlaceFieldValue);
+                            params.put("eventFilter", eventCategoryFieldValue);
+                            params.put("eventNumberOfPeople", "0");
+                            params.put("eventTotalNumberOfPeople", eventTotalNumberOfPeopleFieldValue);
+                            params.put("eventDescription", eventDescriptionFieldValue);
+                            params.put("eventOwnerName", eventOwnerNameFieldValue);
+                            params.put("eventOwnerId", eventOwnerIdFieldValue);
+                            params.put("eventPhoneNumber", eventPhoneNumberFieldValue);
 
                             return params;
                         }
