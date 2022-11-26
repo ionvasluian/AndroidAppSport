@@ -2,6 +2,6 @@
 <resources>
 
     <style name="DialogTheme" parent="android:Theme.Material.Dialog">
-        <item name="android:colorAccent">#585DDB</item>
+        <item name="android:colorAccent">#FFFFFF</item>
     </style>
 </resources>

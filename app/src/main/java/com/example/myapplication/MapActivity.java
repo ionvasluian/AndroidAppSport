@@ -10,6 +10,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -62,9 +65,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Address address = addressList.get(0);
                     latLngg = new LatLng(address.getLatitude(),address.getLongitude());
                     map.clear();
-                    map.addMarker(new MarkerOptions().position(latLngg).title(location));
+                    map.addMarker(new MarkerOptions().position(latLngg).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("custom_marker",70,100))));
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngg,15));
-                    add_place_event.setVisibility(View.VISIBLE);
+                    if(getIntent().getBooleanExtra("from_viewevent",false)){
+
+                    }else{
+                        add_place_event.setVisibility(View.VISIBLE);
+                    }
+
                 }
                 return false;
             }
@@ -132,14 +140,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
-                latLngg = latLng;
-                googleMap.clear();
-                googleMap.addMarker(new MarkerOptions().position(latLng));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                add_place_event.setVisibility(View.VISIBLE);
+                if(getIntent().getBooleanExtra("from_viewevent",false)){
+
+                }else {
+                    latLngg = latLng;
+                    googleMap.clear();
+                    googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("custom_marker", 70, 100))));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    add_place_event.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
-
+    public Bitmap resizeBitmap(String drawableName,int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(drawableName, "drawable", getPackageName()));
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+    }
     }
 

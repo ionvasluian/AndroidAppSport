@@ -131,6 +131,7 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewEventActivity.this, MapActivity.class);
+                intent.putExtra("from_viewevent",true);
                 startActivity(intent);
             }
         });
