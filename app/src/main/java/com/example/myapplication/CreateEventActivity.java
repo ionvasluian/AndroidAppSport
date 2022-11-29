@@ -270,7 +270,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                 }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("Debugging", "volley error");
+                                Log.e("Debugging", "volley error from old event");
                                 ((ImageView) view1.findViewById(R.id.successImageView)).setBackground(ContextCompat.getDrawable(CreateEventActivity.this, R.drawable.error_imgview));
                                 ((TextView) view1.findViewById(R.id.statusAlertDialog)).setText("Error!");
                                 ((TextView) view1.findViewById(R.id.alertDialogMessage)).setText(String.valueOf(error));
@@ -303,7 +303,7 @@ public class CreateEventActivity extends AppCompatActivity {
                             @Override
                             protected Map<String, String> getParams() {
                                 Map<String, String> params = new HashMap<String, String>();
-                                Log.e("Debugging","error");
+
                                 eventNameFieldValue = nameCreateEvent.getText().toString().trim();
                                 eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
                                 eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
@@ -367,7 +367,6 @@ public class CreateEventActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                         });
-                                        Log.e("Works", response);
 //                                Toast.makeText(
 //                                        getApplicationContext(),
 //                                        response,
@@ -377,7 +376,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                 }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-
+                                Log.e("Debugging","volley error from new event");
                                 ((ImageView) view1.findViewById(R.id.successImageView)).setBackground(ContextCompat.getDrawable(CreateEventActivity.this, R.drawable.error_imgview));
                                 ((TextView) view1.findViewById(R.id.statusAlertDialog)).setText("Error!");
                                 ((TextView) view1.findViewById(R.id.alertDialogMessage)).setText(String.valueOf(error));
@@ -416,6 +415,9 @@ public class CreateEventActivity extends AppCompatActivity {
                                 eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
                                 eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
                                 eventPhoneNumberFieldValue = phoneNumberCreateEvent.getText().toString().trim();
+                                eventTimeFieldValue = timeCreateEvent.getText().toString().trim();
+                                eventDateFieldValue = dateCreateEvent.getText().toString().trim();
+
                                 Log.e("Result", eventCategoryFieldValue);
 
                                 params.put("eventName", eventNameFieldValue);

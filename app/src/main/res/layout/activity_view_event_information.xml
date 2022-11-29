@@ -37,6 +37,7 @@
             android:layout_weight="15"></Space>
 
         <TextView
+            android:id="@+id/name_of_event"
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_alignParentTop="true"
@@ -272,6 +273,7 @@
                         android:layout_width="50dp"
                         android:layout_height="match_parent"></Space>
                     <TextView
+                        android:id="@+id/map_view_event"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="Map   "

@@ -19,13 +19,14 @@ public class ViewEventInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event_information);
 
-        TextView event_name, numberOfPeople,date_event,time_event,place_event,description_event;
+        TextView event_name, numberOfPeople,date_event,time_event,place_event,description_event,name_ev,map_view;
         ImageView category_event, edit_event;
         String cat, name_of_event;
         cat = getIntent().getStringExtra("event_filters_id");
         name_of_event = getIntent().getStringExtra("event_name");
-        Log.d("Result",cat);
 
+        map_view = findViewById(R.id.map_view_event);
+        name_ev = findViewById(R.id.name_of_event);
         event_name = findViewById(R.id.event_name_eventinfo);
         numberOfPeople = findViewById(R.id.people_eventinfo);
         date_event = findViewById(R.id.date_eventinfo);
@@ -35,6 +36,7 @@ public class ViewEventInformation extends AppCompatActivity {
         description_event = findViewById(R.id.description_eventinfo);
         edit_event = findViewById(R.id.edit_event);
 
+        name_ev.setText(name_of_event);
         event_name.setText(cat);
         numberOfPeople.setText(getIntent().getStringExtra("event_number_of_people"));
         date_event.setText(getIntent().getStringExtra("event_date"));
@@ -65,6 +67,18 @@ public class ViewEventInformation extends AppCompatActivity {
             category_event.setImageResource(R.drawable.checkers_imageview);
         }
 
+        map_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewEventInformation.this, MapActivity.class);
+                intent.putExtra("from_viewevent",true);
+                intent.putExtra("has_marker",true);
+                intent.putExtra("marker_address", place_event.getText().toString());
+                startActivity(intent);
+
+            }
+        });
+
         edit_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,9 +93,7 @@ public class ViewEventInformation extends AppCompatActivity {
                 intent.putExtra("event_number_of_people",numberOfPeople.getText().toString());
                 intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
                 intent.putExtra("event_id", getIntent().getStringExtra("event_id"));
-//                intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
                 intent.putExtra("event_description", description_event.getText().toString());
-                Log.e("Debugging", name_of_event);
                 startActivity(intent);
 
             }

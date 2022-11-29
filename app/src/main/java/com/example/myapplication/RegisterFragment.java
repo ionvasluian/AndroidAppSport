@@ -222,15 +222,6 @@ public class RegisterFragment extends Fragment {
                                         e.printStackTrace();
                                     }
                                     editor.apply();
-                                    try {
-                                        Toast.makeText(
-                                                view.getContext(),
-                                                responseJson.getString("user_id"),
-                                                Toast.LENGTH_LONG
-                                        ).show();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
                                     Intent intent = new Intent(getActivity(), ViewEventActivity.class);
                                     startActivity(intent);
                                 }
@@ -240,13 +231,14 @@ public class RegisterFragment extends Fragment {
                                 public void onErrorResponse(VolleyError error) {
                                     Toast.makeText(
                                             view.getContext(),
-                                            "Could not connect to the server",
+                                            error.toString(),
                                             Toast.LENGTH_LONG
                                     ).show();
                                 }
                             }) {
                         @Override
                         protected Map<String, String> getParams() {
+                            Log.e("Debugging", passwordFieldValue);
                             Map<String, String> params = new HashMap<String, String>();
                             params.put("userFirstName", firstNameFieldValue);
                             params.put("userLastName", lastNameFieldValue);
@@ -280,4 +272,5 @@ public class RegisterFragment extends Fragment {
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
 }

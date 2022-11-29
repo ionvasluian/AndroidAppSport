@@ -48,6 +48,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         add_place_event =findViewById(R.id.add_location_event);
         add_place_event.setVisibility(View.INVISIBLE);
 
+        if(getIntent().getBooleanExtra("from_viewevent",false)){
+            searchView.setVisibility(View.INVISIBLE);
+
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -133,9 +137,30 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         // Position the map's camera near Sydney, Australia.
 
+        if(getIntent().getBooleanExtra("from_viewevent",false)&& getIntent().getBooleanExtra("has_marker",false)){
+            Log.e("Debugging", "entered");
+            String address = getIntent().getStringExtra("marker_address");
+            Geocoder geocoder;
+            List<Address> addresses;
+            geocoder = new Geocoder(this, Locale.getDefault());
 
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47, 29)));
+            try {
+                addresses = geocoder.getFromLocationName(address,1);
+                LatLng ll = new LatLng(addresses.get(0).getLatitude(),addresses.get(0).getLongitude());
+                googleMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
+                googleMap.addMarker(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("custom_marker", 70, 100))));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }else {
+            googleMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47, 29)));
+        }
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

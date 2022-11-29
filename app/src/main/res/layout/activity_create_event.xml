@@ -8,41 +8,64 @@
     android:background="#585DDB"
     android:orientation="vertical">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        >
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"></Space>
+        <ImageView
+            android:id="@+id/back_createevent"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="29dp"
+            android:src="@drawable/back"
+            android:layout_weight="7">
 
-    <ImageView
-        android:id="@+id/back_createevent"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="29dp"
-        android:src="@drawable/back">
+        </ImageView>
 
-    </ImageView>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="13"></Space>
 
-    <Space
-        android:layout_width="50dp"
-        android:layout_height="match_parent"></Space>
-
-    <TextView
-        android:layout_width="184dp"
-        android:layout_height="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="Create your Event"
-        android:textColor="#fff"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textAlignment="center"></TextView>
-
-</LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Create your Event"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_weight="46"></TextView>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="11"></Space>
+        <ImageView
+            android:id="@+id/delete_event"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="9"
+            android:src="@drawable/bin"
+            android:layout_marginTop="25dp"
+            ></ImageView>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"></Space>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
