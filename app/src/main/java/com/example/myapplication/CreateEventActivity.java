@@ -99,8 +99,9 @@ public class CreateEventActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
         eventOwnerIdFieldValue = sharedPref.getString("userID", "");
+
         eventOwnerNameFieldValue = sharedPref.getString("userName", "");
-        Log.e("ID", eventOwnerIdFieldValue);
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
@@ -236,7 +237,119 @@ public class CreateEventActivity extends AppCompatActivity {
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (coming_from_old_event) {
+                if(coming_from_map){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this, R.style.AlertDialogTheme);
+                    View view1 = LayoutInflater.from(CreateEventActivity.this).inflate(R.layout.success_alert_dialog_layout, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
+                    builder.setView(view1);
+                    String alertMessage = checkFields(view);
+                    if (alertMessage.equals("All Completed")) {
+                        RequestQueue queue = Volley.newRequestQueue(CreateEventActivity.this);
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        final AlertDialog success_dialog = builder.create();
+                                        success_dialog.show();
+                                        if (success_dialog.getWindow() != null) {
+                                            success_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                                        }
+                                        view1.findViewById(R.id.okayButton).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                success_dialog.dismiss();
+                                                Intent intent = new Intent(CreateEventActivity.this, ViewEventActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+//                                Toast.makeText(
+//                                        getApplicationContext(),
+//                                        response,
+//                                        Toast.LENGTH_SHORT
+//                                ).show();
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("Debugging","volley error from new event");
+                                ((ImageView) view1.findViewById(R.id.successImageView)).setBackground(ContextCompat.getDrawable(CreateEventActivity.this, R.drawable.error_imgview));
+                                ((TextView) view1.findViewById(R.id.statusAlertDialog)).setText("Error!");
+                                ((TextView) view1.findViewById(R.id.alertDialogMessage)).setText(String.valueOf(error));
+
+                                final AlertDialog success_dialog = builder.create();
+                                success_dialog.show();
+
+
+                                if (success_dialog.getWindow() != null) {
+                                    success_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                                }
+
+                                view1.findViewById(R.id.okayButton).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        success_dialog.dismiss();
+                                    }
+                                });
+
+
+                                Log.e("Works", String.valueOf(error));
+//                            Toast.makeText(
+//                                    getApplicationContext(),
+//                                    (CharSequence) error,
+//                                    Toast.LENGTH_LONG
+//                            ).show();
+                            }
+
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+
+                                eventNameFieldValue = nameCreateEvent.getText().toString().trim();
+                                eventPlaceFieldValue = placeCreateEvent.getText().toString().trim();
+                                eventTotalNumberOfPeopleFieldValue = maxPeopleCreateEvent.getText().toString().trim();
+                                eventDescriptionFieldValue = descriptionCreateEvent.getText().toString().trim();
+                                eventPhoneNumberFieldValue = phoneNumberCreateEvent.getText().toString().trim();
+                                eventTimeFieldValue = timeCreateEvent.getText().toString().trim();
+                                eventDateFieldValue = dateCreateEvent.getText().toString().trim();
+
+                                Log.e("Result", eventCategoryFieldValue);
+
+                                params.put("eventName", eventNameFieldValue);
+                                params.put("eventDate", eventDateFieldValue);
+                                params.put("eventTime", FormatTime(eventTimeFieldValue));
+                                params.put("eventPlace", eventPlaceFieldValue);
+                                params.put("eventFilter", eventCategoryFieldValue);
+                                params.put("eventNumberOfPeople", "0");
+                                params.put("eventTotalNumberOfPeople", eventTotalNumberOfPeopleFieldValue);
+                                params.put("eventDescription", eventDescriptionFieldValue);
+                                params.put("eventOwnerName", eventOwnerNameFieldValue);
+                                params.put("eventOwnerId", eventOwnerIdFieldValue);
+                                params.put("eventPhoneNumber", eventPhoneNumberFieldValue);
+                                params.put("eventLatitude",getIntent().getStringExtra("latitude"));
+                                params.put("eventLongitude",getIntent().getStringExtra("longitude"));
+                                return params;
+                            }
+                        };
+                        queue.add(stringRequest);
+
+                    } else {
+                        ((ImageView) view1.findViewById(R.id.successImageView)).setBackground(ContextCompat.getDrawable(CreateEventActivity.this, R.drawable.error_imgview));
+                        ((TextView) view1.findViewById(R.id.statusAlertDialog)).setText("Error!");
+                        ((TextView) view1.findViewById(R.id.alertDialogMessage)).setText(alertMessage);
+                        final AlertDialog success_dialog = builder.create();
+                        success_dialog.show();
+                        if (success_dialog.getWindow() != null) {
+                            success_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                        }
+                        view1.findViewById(R.id.okayButton).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                success_dialog.dismiss();
+                            }
+                        });
+                    }
+
+                }else if (coming_from_old_event) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this, R.style.AlertDialogTheme);
                     View view1 = LayoutInflater.from(CreateEventActivity.this).inflate(R.layout.success_alert_dialog_layout, (ConstraintLayout) findViewById(R.id.layoutDialogContainer));
                     builder.setView(view1);

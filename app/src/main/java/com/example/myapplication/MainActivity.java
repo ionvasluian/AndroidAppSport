@@ -38,13 +38,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
+
         boolean isUserLoggedIn = sharedPreferences.getBoolean("isUserLoggedIn", false);
         Log.e("Debugging", String.valueOf(isUserLoggedIn));
         String userID = sharedPreferences.getString("userID", "-1");
+        Log.e("Debugging uid", userID);
         userName = sharedPreferences.getString("userName", "blank");
 
         if (isUserLoggedIn) {
             Intent intent = new Intent(MainActivity.this, ViewEventActivity.class);
+            intent.putExtra("uid", userID);
             startActivity(intent);
         } else {
 

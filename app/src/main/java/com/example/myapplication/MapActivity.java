@@ -108,6 +108,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("phone_number",getIntent().getStringExtra("phone_number"));
                     intent.putExtra("event_description", getIntent().getStringExtra("event_description"));
                     intent.putExtra("event_id",getIntent().getStringExtra("event_id"));
+                    intent.putExtra("latitude",String.valueOf(latLngg.latitude));
+                    intent.putExtra("longitude",String.valueOf(latLngg.longitude));
                     startActivity(intent);
 
                 } catch (IOException e) {
@@ -139,22 +141,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if(getIntent().getBooleanExtra("from_viewevent",false)&& getIntent().getBooleanExtra("has_marker",false)){
             Log.e("Debugging", "entered");
-            String address = getIntent().getStringExtra("marker_address");
-            Geocoder geocoder;
-            List<Address> addresses;
-            geocoder = new Geocoder(this, Locale.getDefault());
 
-            try {
-                addresses = geocoder.getFromLocationName(address,1);
-                LatLng ll = new LatLng(addresses.get(0).getLatitude(),addresses.get(0).getLongitude());
+               double latitude = Double.valueOf(getIntent().getStringExtra("latitude"));
+                double longitude = Double.valueOf(getIntent().getStringExtra("longitude"));
+                LatLng ll = new LatLng(latitude,longitude);
                 googleMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
                 googleMap.addMarker(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("custom_marker", 70, 100))));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(ll,15));
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
 
 
         }else {

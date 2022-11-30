@@ -1,29 +1,56 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.MainActivity.PREFS_NAME;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 public class ViewEventInformation extends AppCompatActivity {
-
+    boolean is_owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event_information);
-
+        String user_id = getIntent().getStringExtra("uid");
         TextView event_name, numberOfPeople,date_event,time_event,place_event,description_event,name_ev,map_view;
         ImageView category_event, edit_event;
         String cat, name_of_event;
+        Button joinEvent;
+        String url = "http://52.86.7.191:443/joinUserById";
+        String joined_events = "http://52.86.7.191:443/getSeparateEvent";
         cat = getIntent().getStringExtra("event_filters_id");
         name_of_event = getIntent().getStringExtra("event_name");
+        RequestQueue queue = Volley.newRequestQueue(this);
 
         map_view = findViewById(R.id.map_view_event);
         name_ev = findViewById(R.id.name_of_event);
@@ -35,7 +62,10 @@ public class ViewEventInformation extends AppCompatActivity {
         place_event = findViewById(R.id.place_eventinfo);
         description_event = findViewById(R.id.description_eventinfo);
         edit_event = findViewById(R.id.edit_event);
+        joinEvent = findViewById(R.id.joinEvent);
 
+
+//        joinEvent.setVisibility(View.INVISIBLE);
         name_ev.setText(name_of_event);
         event_name.setText(cat);
         numberOfPeople.setText(getIntent().getStringExtra("event_number_of_people"));
@@ -43,6 +73,141 @@ public class ViewEventInformation extends AppCompatActivity {
         time_event.setText(getIntent().getStringExtra("event_time"));
         place_event.setText(getIntent().getStringExtra("event_place"));
         description_event.setText(getIntent().getStringExtra("event_description"));
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, joined_events,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Log.e("Debugging", jsonObject.toString());
+                            JSONObject jsonResponse = jsonObject.getJSONObject("response");
+
+
+                            String jsonArrayString = jsonResponse.getString("owned_events");
+
+                            JSONArray jsonArray = new JSONArray(jsonArrayString);
+
+                            for(int i = 0; i < jsonArray.length();i++){
+
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                String ev_id = object.getString("event_id");
+                                if(ev_id.equals(getIntent().getStringExtra("event_id"))){
+                                    String event_id = object.getString("event_owner_id");
+                                    Log.e("event_id", event_id);
+                                    if(event_id.equals(user_id)==false){
+                                        Log.e("entered", "e");
+
+                                        edit_event.setVisibility(View.GONE);
+                                    }
+                                    if(event_id.equals(user_id)){
+                                        is_owner = true;
+                                        joinEvent.setVisibility(View.GONE);
+                                    }
+
+                                }
+
+
+
+                            }
+
+                            jsonArrayString = jsonResponse.getString("not_owned_events");
+
+                            jsonArray = new JSONArray(jsonArrayString);
+
+                            for(int i = 0; i < jsonArray.length();i++){
+
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                String ev_id = object.getString("event_id");
+                                if(ev_id.equals(getIntent().getStringExtra("event_id"))){
+                                    String event_id = object.getString("event_owner_id");
+                                    Log.e("event_id", event_id);
+                                    if(event_id.equals(user_id)==false){
+                                        Log.e("entered", "e");
+
+                                        edit_event.setVisibility(View.GONE);
+                                    }
+
+                                }
+
+
+
+                            }
+
+
+                        } catch (JSONException ex) {
+                            Log.e("error", ex.toString());
+                            ex.printStackTrace();
+                        }
+//                        try {
+
+
+//                            JSONArray jsonArray = new JSONArray(response);
+//
+//                            for(int i = 0; i < jsonArray.length(); i++) {
+//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                                Log.e("Debugging",jsonObject.toString());
+//                                Log.e("Debugging", "working");
+                                //JSONObject jsonResponse = jsonObject.getJSONObject("response");
+//                                if(i == position){
+//                                    int categoryId = jsonResponse.getInt("event_filters_id");
+//                                    Log.e("HUINEA", jsonResponse.getString("event_name"));
+//                                    String category = categories[categoryId-1];
+//                                    String number_of_people = jsonResponse.getInt("event_number_of_people") + "/" + jsonResponse.getInt("event_total_number_of_people");
+//                                    String event_name = jsonResponse.getString("event_name");
+//                                    String event_date = jsonResponse.getString("event_date");
+//                                    String event_time = jsonResponse.getString("event_time");
+//                                    String event_place = jsonResponse.getString("event_place");
+//                                    String description = jsonResponse.getString("event_description");
+//                                    String phone_number_owner = jsonResponse.getString("event_phone_number");
+//                                    String event_id = jsonResponse.getString("event_id");
+//                                    String event_longitude = jsonResponse.getString("event_longitude");
+//                                    String event_latitude = jsonResponse.getString("event_latitude");
+//
+//                                    intent.putExtra("event_name", event_name);
+//                                    intent.putExtra("event_date", event_date);
+//                                    intent.putExtra("event_time", event_time);
+//                                    intent.putExtra("event_place", event_place);
+//                                    intent.putExtra("event_filters_id", category);
+//                                    intent.putExtra("event_number_of_people", number_of_people);
+//                                    intent.putExtra("event_description", description);
+//                                    intent.putExtra("phone_number",phone_number_owner);
+//                                    intent.putExtra("event_id",event_id);
+//                                    intent.putExtra("latitude",event_latitude);
+//                                    intent.putExtra("longitude",event_longitude);
+//
+//
+//                                    startActivityForResult(intent,1);
+
+//                                }
+
+//                            }
+//                        } catch (JSONException e) {
+//                            Log.e("Debugging", e.toString());
+//                            e.printStackTrace();
+//                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Response","That didn't work!");
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userId", user_id);
+
+                return params;
+            }
+        };
+
+        queue.add(stringRequest);
 
 
         if(cat.toLowerCase().equals("volleyball")){
@@ -67,6 +232,40 @@ public class ViewEventInformation extends AppCompatActivity {
             category_event.setImageResource(R.drawable.checkers_imageview);
         }
 
+        joinEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(
+                                        view.getContext(),
+                                        error.toString(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("userId", user_id);
+                        params.put("eventId", getIntent().getStringExtra("event_id"));
+                        return params;
+                    }
+                };
+                queue.add(stringRequest);
+            }
+        });
+
         map_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +273,8 @@ public class ViewEventInformation extends AppCompatActivity {
                 intent.putExtra("from_viewevent",true);
                 intent.putExtra("has_marker",true);
                 intent.putExtra("marker_address", place_event.getText().toString());
+                intent.putExtra("latitude",getIntent().getStringExtra("latitude"));
+                intent.putExtra("longitude",getIntent().getStringExtra("longitude"));
                 startActivity(intent);
 
             }

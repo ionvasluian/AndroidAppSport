@@ -191,6 +191,11 @@ public class RegisterFragment extends Fragment {
                         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
                         messageDigest.update(passwordFieldValue.getBytes());
                         passwordFieldValue = new String(messageDigest.digest());
+                        char[] hashedPassword = passwordFieldValue.toCharArray();
+                        for(int o = 0; o < hashedPassword.length; o++){
+                            hashedPassword[o] %=126;
+                            passwordFieldValue=new String(hashedPassword);
+                        }
                     } catch (NoSuchAlgorithmException e) {
                         e.printStackTrace();
                     }

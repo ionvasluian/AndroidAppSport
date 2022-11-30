@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,9 +51,10 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
         ListView listView =  new ListView(this);
         RecyclerView recyclerView;
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
+        String user_id = sharedPreferences.getString("UserID","");
+        Log.e("debug", user_id);
         String[] categories = getResources().getStringArray(R.array.categories);
-        String url = "http://52.86.7.191:443/createEvent";
         recyclerView = findViewById(R.id.containerViewEvents);
         int minPeople = 3, maxpeople = 12;
 
@@ -132,6 +134,8 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
             public void onClick(View view) {
                 Intent intent = new Intent(ViewEventActivity.this, MapActivity.class);
                 intent.putExtra("from_viewevent",true);
+                intent.putExtra("latitude",getIntent().getStringExtra("latitude"));
+                intent.putExtra("longitude",getIntent().getStringExtra("longitude"));
                 startActivity(intent);
             }
         });
@@ -200,7 +204,8 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
                                     String description = jsonResponse.getString("event_description");
                                     String phone_number_owner = jsonResponse.getString("event_phone_number");
                                     String event_id = jsonResponse.getString("event_id");
-
+                                    String event_longitude = jsonResponse.getString("event_longitude");
+                                    String event_latitude = jsonResponse.getString("event_latitude");
 
                                     intent.putExtra("event_name", event_name);
                                     intent.putExtra("event_date", event_date);
@@ -211,6 +216,11 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
                                     intent.putExtra("event_description", description);
                                     intent.putExtra("phone_number",phone_number_owner);
                                     intent.putExtra("event_id",event_id);
+                                    intent.putExtra("latitude",event_latitude);
+                                    intent.putExtra("longitude",event_longitude);
+                                    intent.putExtra("uid",getIntent().getStringExtra("uid"));
+
+
                                     startActivityForResult(intent,1);
 
                                 }
