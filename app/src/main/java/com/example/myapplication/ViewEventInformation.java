@@ -4,6 +4,8 @@ import static com.example.myapplication.MainActivity.PREFS_NAME;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,6 +50,7 @@ public class ViewEventInformation extends AppCompatActivity {
         Button joinEvent;
         String url = "http://52.86.7.191:443/joinUserById";
         String joined_events = "http://52.86.7.191:443/getSeparateEvent";
+        String j_event = "http://52.86.7.191:443/getUserInfoById?id="+user_id;
         cat = getIntent().getStringExtra("event_filters_id");
         name_of_event = getIntent().getStringExtra("event_name");
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -74,8 +77,49 @@ public class ViewEventInformation extends AppCompatActivity {
         place_event.setText(getIntent().getStringExtra("event_place"));
         description_event.setText(getIntent().getStringExtra("event_description"));
 
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, j_event,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Log.e("Debugging", jsonObject.toString());
+                            JSONObject jsonResponse = jsonObject.getJSONObject("response");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, joined_events,
+
+                            String jsonArrayString = jsonResponse.getString("user_joined_events_ids");
+                            Log.e("jsonar", jsonArrayString);
+                            String string[] = jsonArrayString.replaceAll(" ", "").replaceAll("\\[","").replaceAll("\\]","").split(",");
+                            for(int i = 0; i < string.length; i++) {
+                                Log.e("er", string[i]);
+                                if (getIntent().getStringExtra("event_id").equals(string[i])) {
+                                    joinEvent.setVisibility(View.GONE);
+                                }
+                            }
+
+
+
+
+
+
+                        } catch (JSONException ex) {
+                            Log.e("error", ex.toString());
+                            ex.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Response","That didn't work!");
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+         stringRequest = new StringRequest(Request.Method.POST, joined_events,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -142,53 +186,6 @@ public class ViewEventInformation extends AppCompatActivity {
                             Log.e("error", ex.toString());
                             ex.printStackTrace();
                         }
-//                        try {
-
-
-//                            JSONArray jsonArray = new JSONArray(response);
-//
-//                            for(int i = 0; i < jsonArray.length(); i++) {
-//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.e("Debugging",jsonObject.toString());
-//                                Log.e("Debugging", "working");
-                                //JSONObject jsonResponse = jsonObject.getJSONObject("response");
-//                                if(i == position){
-//                                    int categoryId = jsonResponse.getInt("event_filters_id");
-//                                    Log.e("HUINEA", jsonResponse.getString("event_name"));
-//                                    String category = categories[categoryId-1];
-//                                    String number_of_people = jsonResponse.getInt("event_number_of_people") + "/" + jsonResponse.getInt("event_total_number_of_people");
-//                                    String event_name = jsonResponse.getString("event_name");
-//                                    String event_date = jsonResponse.getString("event_date");
-//                                    String event_time = jsonResponse.getString("event_time");
-//                                    String event_place = jsonResponse.getString("event_place");
-//                                    String description = jsonResponse.getString("event_description");
-//                                    String phone_number_owner = jsonResponse.getString("event_phone_number");
-//                                    String event_id = jsonResponse.getString("event_id");
-//                                    String event_longitude = jsonResponse.getString("event_longitude");
-//                                    String event_latitude = jsonResponse.getString("event_latitude");
-//
-//                                    intent.putExtra("event_name", event_name);
-//                                    intent.putExtra("event_date", event_date);
-//                                    intent.putExtra("event_time", event_time);
-//                                    intent.putExtra("event_place", event_place);
-//                                    intent.putExtra("event_filters_id", category);
-//                                    intent.putExtra("event_number_of_people", number_of_people);
-//                                    intent.putExtra("event_description", description);
-//                                    intent.putExtra("phone_number",phone_number_owner);
-//                                    intent.putExtra("event_id",event_id);
-//                                    intent.putExtra("latitude",event_latitude);
-//                                    intent.putExtra("longitude",event_longitude);
-//
-//
-//                                    startActivityForResult(intent,1);
-
-//                                }
-
-//                            }
-//                        } catch (JSONException e) {
-//                            Log.e("Debugging", e.toString());
-//                            e.printStackTrace();
-//                        }
 
                     }
                 }, new Response.ErrorListener() {
