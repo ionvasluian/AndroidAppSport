@@ -127,7 +127,6 @@ public class ViewEventInformation extends AppCompatActivity {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Log.e("Debugging", jsonObject.toString());
                             JSONObject jsonResponse = jsonObject.getJSONObject("response");
 
 
@@ -237,7 +236,7 @@ public class ViewEventInformation extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
+                                joinEvent.setVisibility(View.GONE);
                             }
                         },
                         new Response.ErrorListener() {

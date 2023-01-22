@@ -106,20 +106,6 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
         queue.add(stringRequest);
 
 
-//        eventListElements.add(new EventListElement("volleyball","8/12","Let's go volleyball"));
-//        eventListElements.add(new EventListElement("volleyball", "3/12","Hehehe"));
-//        eventListElements.add(new EventListElement("volleyball","8/12","Let's go volleyball"));
-//        eventListElements.add(new EventListElement("volleyball", "3/12","Hehehe"));
-//        eventListElements.add(new EventListElement("volleyball","8/12","Let's go volleyball"));
-//        eventListElements.add(new EventListElement("volleyball", "3/12","Hehehe"));
-//        eventListElements.add(new EventListElement("volleyball","8/12","Let's go volleyball"));
-//        eventListElements.add(new EventListElement("volleyball", "3/12","Hehehe"));
-
-
-
-//        ArrayAdapter<ViewEventElementActivity> viewEventElements = new ArrayAdapter<ViewEventElementActivity>(this, R.layout.activity_view_event_element,R.id.containerViewEvents);
-//        setContentView(listView);
-//        listView.setAdapter(viewEventElements);
 
 
 
@@ -144,6 +130,7 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewEventActivity.this, UserEventListActivity.class);
+                intent.putExtra("uid",getIntent().getStringExtra("uid"));
                 startActivity(intent);
             }
         });
@@ -185,7 +172,6 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string
                         try {
                             JSONArray jsonArray = new JSONArray(response);
 
@@ -194,7 +180,6 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
                                 JSONObject jsonResponse = jsonObject.getJSONObject("response");
                                 if(i == position){
                                     int categoryId = jsonResponse.getInt("event_filters_id");
-                                    Log.e("HUINEA", jsonResponse.getString("event_name"));
                                     String category = categories[categoryId-1];
                                     String number_of_people = jsonResponse.getInt("event_number_of_people") + "/" + jsonResponse.getInt("event_total_number_of_people");
                                     String event_name = jsonResponse.getString("event_name");

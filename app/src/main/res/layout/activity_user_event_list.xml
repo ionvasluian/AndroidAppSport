@@ -74,14 +74,17 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Created"></RadioButton>
+                    android:text="Created"
+                    android:checked="true"
+                    android:id="@+id/created_ev"></RadioButton>
                 <Space
                     android:layout_width="40dp"
                     android:layout_height="match_parent"></Space>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Joined"></RadioButton>
+                    android:text="Joined"
+                    android:id="@+id/joined_ev"></RadioButton>
             </RadioGroup>
         </LinearLayout>
 

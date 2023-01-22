@@ -244,6 +244,7 @@ public class RegisterFragment extends Fragment {
                         @Override
                         protected Map<String, String> getParams() {
                             Log.e("Debugging", passwordFieldValue);
+                            Log.e("all", firstNameFieldValue+","+lastNameFieldValue+","+userNameFieldValue+","+passwordFieldValue+","+emailFieldValue+","+phoneNumberFieldValue+","+birthdayFieldValue);
                             Map<String, String> params = new HashMap<String, String>();
                             params.put("userFirstName", firstNameFieldValue);
                             params.put("userLastName", lastNameFieldValue);
