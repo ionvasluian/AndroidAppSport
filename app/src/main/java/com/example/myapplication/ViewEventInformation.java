@@ -43,12 +43,12 @@ public class ViewEventInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event_information);
-        String user_id = getIntent().getStringExtra("uid");
+        String user_id = getSharedPreferences(PREFS_NAME, 0).getString("userID","-1");
         TextView event_name, numberOfPeople,date_event,time_event,place_event,description_event,name_ev,map_view;
         ImageView category_event, edit_event;
         String cat, name_of_event;
         Button joinEvent;
-        String url = "http://52.86.7.191:443/joinUserById";
+        final String[] url = {"http://52.86.7.191:443/joinUserById"};
         String joined_events = "http://52.86.7.191:443/getSeparateEvent";
         String j_event = "http://52.86.7.191:443/getUserInfoById?id="+user_id;
         cat = getIntent().getStringExtra("event_filters_id");
@@ -94,7 +94,8 @@ public class ViewEventInformation extends AppCompatActivity {
                             for(int i = 0; i < string.length; i++) {
                                 Log.e("er", string[i]);
                                 if (getIntent().getStringExtra("event_id").equals(string[i])) {
-                                    joinEvent.setVisibility(View.GONE);
+                                    joinEvent.setText("Leave");
+//                                    joinEvent.setVisibility(View.GONE);
                                 }
                             }
 
@@ -140,7 +141,7 @@ public class ViewEventInformation extends AppCompatActivity {
                                 String ev_id = object.getString("event_id");
                                 if(ev_id.equals(getIntent().getStringExtra("event_id"))){
                                     String event_id = object.getString("event_owner_id");
-                                    Log.e("event_id", event_id);
+                                    Log.e("event_id", ev_id);
                                     if(event_id.equals(user_id)==false){
                                         Log.e("entered", "e");
 
@@ -231,12 +232,20 @@ public class ViewEventInformation extends AppCompatActivity {
         joinEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String urll = "";
+                if(joinEvent.getText().toString().equals("Join")){
+                    joinEvent.setText("Leave");
+                    urll = "http://52.86.7.191:443/joinUserById";
+                }else{
+                    joinEvent.setText("Join");
+                    urll = "http://52.86.7.191:443/unjoinUserById";
+                }
                 RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, urll,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                joinEvent.setVisibility(View.GONE);
+                                Log.e("Debug", response);
                             }
                         },
                         new Response.ErrorListener() {

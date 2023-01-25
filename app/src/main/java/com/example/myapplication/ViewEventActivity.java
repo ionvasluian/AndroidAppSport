@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.MainActivity.PREFS_NAME;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,8 +53,8 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
         ListView listView =  new ListView(this);
         RecyclerView recyclerView;
 
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
-        String user_id = sharedPreferences.getString("UserID","");
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
+        String user_id = sharedPreferences.getString("userID","-1");
         Log.e("debug", user_id);
         String[] categories = getResources().getStringArray(R.array.categories);
         recyclerView = findViewById(R.id.containerViewEvents);
@@ -111,7 +113,7 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
 
 
         createEvent = findViewById(R.id.add_fab);
-        createaEvent = findViewById(R.id.back_event_list);
+        createaEvent = findViewById(R.id.logout_list);
         listEvents = findViewById(R.id.list_events_user);
         mapClick = findViewById(R.id.map_press);
 
@@ -139,6 +141,16 @@ public class ViewEventActivity extends AppCompatActivity implements RecyclerView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewEventActivity.this, MainActivity.class);
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(
+                                MainActivity.PREFS_NAME,
+                                0
+                        );
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isUserLoggedIn", false);
+                editor.putString("userID", "-1");
+                editor.putString("userName", "");
+                editor.apply();
                 startActivity(intent);
             }
         });

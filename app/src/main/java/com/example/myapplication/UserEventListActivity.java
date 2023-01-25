@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.MainActivity.PREFS_NAME;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,7 +52,7 @@ public class UserEventListActivity extends AppCompatActivity implements Recycler
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonResponse = jsonObject.getJSONObject("response");
                             String created_events_string = jsonResponse.getString("created_events");
-
+                            Log.e("Whatever", jsonResponse.toString());
 
                             JSONArray created_events_json = new JSONArray(created_events_string);
 
@@ -83,7 +85,7 @@ public class UserEventListActivity extends AppCompatActivity implements Recycler
                                 String category = categories[categoryId-1];
                                 String number_of_people = joined_event_json.getInt("event_number_of_people")+"/"+joined_event_json.getInt("event_total_number_of_people");
                                 String event_name = joined_event_json.getString("event_name");
-                                Log.e("Debug",joined_event_json.toString());
+                                Log.e("Joined Ev",joined_event_json.toString());
                                 joined_eventListElements.add(new EventListElement(category.toLowerCase(),number_of_people,event_name));
                             }
 
@@ -106,7 +108,8 @@ public class UserEventListActivity extends AppCompatActivity implements Recycler
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", getIntent().getStringExtra("uid"));
+
+                params.put("userId", getSharedPreferences(PREFS_NAME, 0).getString("userID","-1"));
 //                params.put("userPassword", passwordFieldValue);
                 return params;
             }
@@ -247,7 +250,7 @@ public class UserEventListActivity extends AppCompatActivity implements Recycler
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", getIntent().getStringExtra("uid"));
+                params.put("userId", getSharedPreferences(PREFS_NAME, 0).getString("userID","-1"));
 //                params.put("userPassword", passwordFieldValue);
                 return params;
             }
